@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foriyana_app/core/router/app_router.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/auth_cubit.dart';
-import 'package:foriyana_app/presentation/notused/product_cubit.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/profile_cubit.dart';
-import 'package:foriyana_app/presentation/notused/statistic_cubit.dart';
-import 'package:foriyana_app/presentation/widgets/app_drawer.dart';
 import 'package:foriyana_app/presentation/widgets/feature_product.dart';
 import 'package:foriyana_app/presentation/widgets/recommended_product.dart';
 import 'package:foriyana_app/presentation/widgets/top_collection.dart';
@@ -29,15 +25,9 @@ class _HomeTabState extends State<HomeTab> {
     });
   }
 
-  ProductCubit productCubit = ProductCubit();
   ProfileCubit profileCubit = ProfileCubit();
-  StatisticCubit statisticCubit = StatisticCubit();
   void getData() async {
-    try {
-      productCubit.fetchProducts();
-    } catch (e) {
-      print(e.toString());
-    }
+    try {} catch (ex) {}
   }
 
   @override
@@ -45,7 +35,7 @@ class _HomeTabState extends State<HomeTab> {
     AuthCubit authCubit = context.watch<AuthCubit>();
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => productCubit),
+        BlocProvider(create: (context) => profileCubit),
       ],
       child: Scaffold(
         body: Padding(

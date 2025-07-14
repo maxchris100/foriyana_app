@@ -1,18 +1,9 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foriyana_app/core/router/app_router.dart';
 import 'package:foriyana_app/data/data_sources/user_local_data_source.dart';
-import 'package:foriyana_app/env/config.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/auth_cubit.dart';
-import 'package:foriyana_app/presentation/widgets/filter_language.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

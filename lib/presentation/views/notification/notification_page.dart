@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foriyana_app/presentation/notused/product_cubit.dart';
+import 'package:foriyana_app/presentation/blocs/cubit/profile_cubit.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({super.key});
@@ -21,18 +21,15 @@ class _NotificationPageState extends State<NotificationPage> {
     });
   }
 
-  void getData() async {
-    try {} catch (e) {
-      print(e.toString());
-    }
-  }
-
   @override
   void dispose() {
     super.dispose();
   }
 
-  ProductCubit productCubit = ProductCubit();
+  ProfileCubit profileCubit = ProfileCubit();
+  void getData() async {
+    try {} catch (ex) {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +37,7 @@ class _NotificationPageState extends State<NotificationPage> {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => productCubit),
+        BlocProvider(create: (context) => profileCubit),
       ],
       child: Scaffold(
         appBar: AppBar(

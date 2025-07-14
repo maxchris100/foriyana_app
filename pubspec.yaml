@@ -44,6 +44,8 @@ dependencies:
   device_info_plus:
   app_settings:
 
+  flutter_local_notifications:
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

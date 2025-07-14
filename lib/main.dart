@@ -41,6 +41,7 @@ Future<void> main() async {
   await AppDevice.getDeviceInfo();
   HttpOverrides.global = MyHttpOverrides();
   // await CFirebase.init();
+
   await dotenv.load(fileName: ".env");
   Constant.initializeUserLocalDataSource();
   await setLanguage();
