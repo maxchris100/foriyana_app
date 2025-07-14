@@ -6,12 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http_client;
-import 'package:http/http.dart' as dotenv;
 import 'package:http/http.dart' as http;
-import 'package:foriyana_app/data/data_sources/local/user_local_data_source.dart';
-import 'package:foriyana_app/data/models/auth/auth_response_model.dart';
-import 'package:foriyana_app/data/models/user/user_model.dart';
+import 'package:foriyana_app/data/data_sources/user_local_data_source.dart';
+import 'package:foriyana_app/data/models/auth_response_model.dart';
+import 'package:foriyana_app/data/models/user_model.dart';
 import 'package:foriyana_app/generated/l10n.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/auth_cubit.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/otp_cubit.dart';
@@ -204,8 +202,8 @@ class _OtpPageState extends State<OtpPage> with WidgetsBindingObserver {
       if (response.statusCode == 201) {
         String? redirectUrl = res['redirect_url'];
         if (res['message'] == 'OTP verified successfully' && redirectUrl != null
-        // && redirectUrl.contains("myapp://customer-portal.app")
-        ) {
+            // && redirectUrl.contains("myapp://customer-portal.app")
+            ) {
           Uri uri = Uri.parse(redirectUrl);
           String? sessionCode = uri.queryParameters['session_code'];
           _handleSessionCode(sessionCode);
@@ -460,12 +458,11 @@ class _OtpPageState extends State<OtpPage> with WidgetsBindingObserver {
                       ),
                       const SizedBox(height: 10),
                       GestureDetector(
-                        onTap:
-                            isLoadingResend && state > 0
-                                ? null
-                                : () async {
-                                  resendOtp(context);
-                                },
+                        onTap: isLoadingResend && state > 0
+                            ? null
+                            : () async {
+                                resendOtp(context);
+                              },
                         child: Text(
                           S.current.otpVerification_resend,
                           style: TextStyle(

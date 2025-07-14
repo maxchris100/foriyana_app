@@ -31,13 +31,18 @@ dependencies:
   shared_preferences: ^2.0.17 
   flutter_bloc: ^9.0.0
   get_it: ^8.0.3
-  http: ^0.13.3
+  # http: ^0.13.3
   jwt_decoder: ^2.0.1 
   dio: 
-  # alice:
+  flutter_alice: ^2.0.1
   flutter_svg:
   fl_chart: ^0.70.2 
   flutter_dotenv:
+  overlay_support:  
+
+  package_info_plus:
+  device_info_plus:
+  app_settings:
 
 dev_dependencies:
   flutter_test:

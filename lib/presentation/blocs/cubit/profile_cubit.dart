@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:meta/meta.dart';
-import 'package:foriyana_app/data/data_sources/local/user_local_data_source.dart';
-import 'package:foriyana_app/data/models/user/profile_response_model.dart';
+import 'package:foriyana_app/data/data_sources/user_local_data_source.dart';
+import 'package:foriyana_app/data/models/profile_response_model.dart';
 import 'package:foriyana_app/domain/repositories/profile_repository.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/auth_cubit.dart';
 

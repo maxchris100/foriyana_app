@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:foriyana_app/data/data_sources/local/user_local_data_source.dart';
+import 'package:foriyana_app/data/data_sources/user_local_data_source.dart';
 import 'package:foriyana_app/generated/l10n.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/language_cubit.dart';
 
@@ -69,41 +69,40 @@ class _FilterLanguageState extends State<FilterLanguage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Column(
-            children:
-                flagItems.map((item) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedLocal = item["code"].toString();
-                      });
-                      context.read<LanguageCubit>().switchLanguage(
+            children: flagItems.map((item) {
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedLocal = item["code"].toString();
+                  });
+                  context.read<LanguageCubit>().switchLanguage(
                         item["code"].toString(),
                       );
-                      log("@SWITCH LANGUAGE: ${UserLocalDataSource.language}");
-                      Navigator.pop(ctx, selectedLocal);
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(12),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 40,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(4),
-                              child: SvgPicture.asset(
-                                item["asset"].toString(),
-                                height: 20,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
+                  log("@SWITCH LANGUAGE: ${UserLocalDataSource.language}");
+                  Navigator.pop(ctx, selectedLocal);
+                },
+                child: Container(
+                  padding: EdgeInsets.all(12),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 40,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: SvgPicture.asset(
+                            item["asset"].toString(),
+                            height: 20,
+                            fit: BoxFit.fill,
                           ),
-                          SizedBox(width: 12),
-                          Expanded(child: Text(item["title"].toString())),
-                        ],
+                        ),
                       ),
-                    ),
-                  );
-                }).toList(),
+                      SizedBox(width: 12),
+                      Expanded(child: Text(item["title"].toString())),
+                    ],
+                  ),
+                ),
+              );
+            }).toList(),
           ),
           SizedBox(height: 16),
           Container(

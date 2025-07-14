@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:foriyana_app/core/util/date_format.dart';
-import 'package:foriyana_app/data/data_sources/local/user_local_data_source.dart';
-import 'package:foriyana_app/data/models/user/statistic_response_model.dart';
+import 'package:foriyana_app/data/data_sources/user_local_data_source.dart';
+import 'package:foriyana_app/data/models/statistic_response_model.dart';
 import 'package:foriyana_app/domain/repositories/profile_repository.dart';
 import 'package:foriyana_app/env/dev.dart';
 

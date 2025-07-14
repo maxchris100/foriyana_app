@@ -7,8 +7,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foriyana_app/core/router/app_router.dart';
-import 'package:foriyana_app/data/data_sources/local/user_local_data_source.dart';
+import 'package:foriyana_app/data/data_sources/user_local_data_source.dart';
 import 'package:foriyana_app/env/config.dart';
+import 'package:foriyana_app/presentation/blocs/cubit/auth_cubit.dart';
 import 'package:foriyana_app/presentation/widgets/filter_language.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -23,104 +24,41 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool isDev = false;
   bool _isLoading = false;
-  // late final AuthRepository _authRepository;
-  late final UserLocalDataSource userLocalDataSource;
 
   String callbackUrl = 'myapp://customer-portal.app'; // Callback URL default
   late String selectedLocal;
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _passController = TextEditingController();
   final FocusNode _emailFocus = FocusNode();
-  final FocusNode _phoneFocus = FocusNode();
-
-  Future<void> _initializeUserLocalDataSource() async {
-    final sharedPreferences = await SharedPreferences.getInstance();
-    final secureStorage = const FlutterSecureStorage();
-
-    userLocalDataSource = UserLocalDataSourceImpl(
-      sharedPreferences: sharedPreferences,
-      secureStorage: secureStorage,
-    );
-  }
+  final FocusNode _passFocus = FocusNode();
 
   @override
   void initState() {
     selectedLocal = UserLocalDataSource.language;
     super.initState();
-    // _initialize2WebView();
-
-    // ✅ Initialize UserLocalDataSourceImpl with dependencies
-    _initializeUserLocalDataSource();
-    // if (Config.env.appName == "MyApp (Dev)") {
-    //   isDev = true;
-    // }
-    // if (isDev) {
-    //   // _emailController.text = "dev-friendsure@yopmail.com";
-    //   // _phoneController.text = "82297897576";
-
-    //   _emailController.text = "123@yopmail.com";
-    //   _phoneController.text = "123123123";
-    // }
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _phoneFocus.requestFocus();
+      if (dotenv.env["ENV"] != "production") {
+        isDev = true;
+        _emailController.text = "johndoe@example.com";
+        _passController.text = "securePassword123";
+        setState(() {});
+        //   _emailController.text = "123@yopmail.com";
+        //   _passController.text = "123123123";
+      }
     });
   }
 
   void _handleSubmit() async {
-    Navigator.of(context).pushReplacementNamed(
-      AppRouter.home,
-    );
-    return;
     if (_formKey.currentState!.validate()) {
-      //handle submit
       setState(() {
         _isLoading = true;
       });
-      try {
-        String phoneCode = "+" + getPhoneCode(selectedLocal);
-        String phoneNumber = phoneCode + _phoneController.text;
-        String baseUrl = dotenv.get('BASE_API_URL');
 
-        var response = await http.post(
-          Uri.parse(
-            baseUrl,
-          ),
-          headers: <String, String>{
-            'authorization': 'Bearer 6eyw7n4kk9063sivf6ubt8dz5kyhwl',
-          },
-          body: {'email': _emailController.text, 'phoneNumber': phoneNumber},
-        );
-        var res = json.decode(response.body);
-        if (response.statusCode == 201 &&
-            res["message"] == "OTP sent successfully") {
-          Navigator.of(context).pushReplacementNamed(
-            '/otp',
-            arguments: {
-              "email": _emailController.text,
-              'phoneNumber': phoneNumber,
-            },
-          );
-        } else {
-          Fluttertoast.showToast(
-            msg: res["message"],
-            backgroundColor: Colors.red,
-          );
-        }
-        // if (res["message"] == 'User not found' ||
-        //     res["message"] == 'User not found or inactive') {
-        //   Fluttertoast.showToast(
-        //       msg: res["message"], backgroundColor: Colors.red);
-        // } else {
-        //   // Navigate to home and remove login from backstack
-        //   // ignore: use_build_context_synchronously
-        //   Navigator.of(context).pushReplacementNamed('/otp');
-        // }
-      } catch (e) {
-        debugPrint('Login error: $e');
-      }
+      await AuthCubit().login(context,
+          _emailController.text.trim().toLowerCase(), _passController.text);
+
       setState(() {
         _isLoading = false;
       });
@@ -130,9 +68,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     _emailFocus.dispose();
-    _phoneFocus.dispose();
+    _passFocus.dispose();
     _emailController.dispose();
-    _phoneController.dispose();
+    _passController.dispose();
     super.dispose();
   }
 
@@ -140,26 +78,26 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          // title: isDev
-          //     ? GestureDetector(
-          //         onTap: () {
-          //           Navigator.of(context).pushReplacementNamed('/home');
-          //         },
-          //         child: Icon(Icons.home))
-          //     : Text(""),
-          // actions: [
-          //   isDev
-          //       ? GestureDetector(
-          //           onTap: () {
-          //             Navigator.of(context).pushNamed('/otp');
-          //           },
-          //           child: Text("OTP"))
-          //       : Text(""),
-          //   SizedBox(
-          //     width: 10,
-          //   ),
-          // ],
+        title: isDev
+            ? GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushReplacementNamed('/home');
+                },
+                child: Icon(Icons.home))
+            : Text(""),
+        actions: [
+          isDev
+              ? GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/otp');
+                  },
+                  child: Text("OTP"))
+              : Text(""),
+          SizedBox(
+            width: 10,
           ),
+        ],
+      ),
       body: Form(
         key: _formKey,
         child: SafeArea(
@@ -183,8 +121,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                _buildTextField("Email address"),
-                _buildTextField("Password", isPassword: true),
+                _buildTextField("Email address", controller: _emailController),
+                _buildTextField("Password",
+                    isPassword: true, controller: _passController),
                 GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, AppRouter.forgotPassword);
@@ -263,10 +202,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildTextField(String hint, {bool isPassword = false}) {
+  Widget _buildTextField(String hint,
+      {bool isPassword = false, required TextEditingController controller}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: TextField(
+        controller: controller,
         obscureText: isPassword,
         decoration: InputDecoration(
           hintText: hint,

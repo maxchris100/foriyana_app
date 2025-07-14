@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:foriyana_app/data/data_sources/local/user_local_data_source.dart';
-import 'package:foriyana_app/data/models/user/product_response_model.dart';
+import 'package:foriyana_app/data/data_sources/user_local_data_source.dart';
+import 'package:foriyana_app/data/models/product_response_model.dart';
 import 'package:foriyana_app/domain/repositories/profile_repository.dart';
 
 @immutable

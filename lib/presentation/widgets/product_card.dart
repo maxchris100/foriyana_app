@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:foriyana_app/data/models/user/product_response_model.dart';
+import 'package:foriyana_app/data/models/product_response_model.dart';
 import 'package:foriyana_app/generated/l10n.dart';
 
 class ProductCard extends StatelessWidget {
@@ -192,15 +192,14 @@ class ProductCard extends StatelessWidget {
                             style: ButtonStyle(
                               backgroundColor:
                                   WidgetStateProperty.resolveWith<Color>((
-                                    states,
-                                  ) {
-                                    if (states.contains(WidgetState.disabled)) {
-                                      return Colors
-                                          .grey
-                                          .shade300; // warna saat disabled
-                                    }
-                                    return Colors.red; // warna aktif
-                                  }),
+                                states,
+                              ) {
+                                if (states.contains(WidgetState.disabled)) {
+                                  return Colors
+                                      .grey.shade300; // warna saat disabled
+                                }
+                                return Colors.red; // warna aktif
+                              }),
                               shape: WidgetStateProperty.all(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),

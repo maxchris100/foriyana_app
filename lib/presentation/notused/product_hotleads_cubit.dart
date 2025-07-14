@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:foriyana_app/data/data_sources/local/user_local_data_source.dart';
-import 'package:foriyana_app/data/models/user/product_hotlead_response_model.dart';
-import 'package:foriyana_app/data/models/user/product_response_model.dart';
+import 'package:foriyana_app/data/data_sources/user_local_data_source.dart';
+import 'package:foriyana_app/data/models/product_hotlead_response_model.dart';
+import 'package:foriyana_app/data/models/product_response_model.dart';
 import 'package:foriyana_app/domain/repositories/profile_repository.dart';
 import 'package:foriyana_app/env/dev.dart';
 import 'package:foriyana_app/env/env.dart';
@@ -53,8 +53,8 @@ class ProductHotleadCubit<T> extends Cubit<ProductHotleadState> {
         );
         ProductHotleadStatisticResponseModel resStatistic =
             ProductHotleadStatisticResponseModel.fromJson(
-              response.data["statistic"],
-            );
+          response.data["statistic"],
+        );
         emit(
           ProductHotleadLoaded<T>(res, resStatistic),
         ); // Emit the loaded state with products

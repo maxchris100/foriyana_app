@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'dev.flutter.flutter-gradle-plugin'
 
 android {
-    namespace "com.referralappfriendsure.foriyana_app"
+    namespace "com.foriyana.foriyana_app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
     defaultConfig {
-        applicationId "com.referralappfriendsure.foriyana_app"
+        applicationId "com.foriyana.foriyana_app"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode 1

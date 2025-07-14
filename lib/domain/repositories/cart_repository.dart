@@ -1,12 +1,21 @@
-import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:foriyana_app/core/util/date_format.dart';
+import 'package:foriyana_app/core/util/dio_client.dart';
 
-import '../../../../core/error/failures.dart';
-import '../entities/cart/cart_item.dart';
+class CartRepository {
+  CartRepository._();
 
-abstract class CartRepository {
-  Future<Either<Failure, List<CartItem>>> getCachedCart();
-  Future<Either<Failure, List<CartItem>>> syncCart();
-  Future<Either<Failure, CartItem>> addToCart(CartItem params);
-  Future<Either<Failure, bool>> deleteFormCart();
-  Future<Either<Failure, bool>> clearCart();
+  static Future<Response> getCart({
+    int page = 1,
+    int limit = 50,
+    CancelToken? cancelToken,
+  }) async {
+    return await DioClient.instance.get(
+      "/v1/cart",
+      queryParameters: {
+        "page": page,
+        "limit": limit,
+      },
+    );
+  }
 }

@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
-import 'package:foriyana_app/data/data_sources/local/user_local_data_source.dart';
-import 'package:foriyana_app/data/models/user/commission_response_model.dart';
-import 'package:foriyana_app/data/models/user/commission_transactions_response_model.dart';
-import 'package:foriyana_app/data/models/user/paging.dart';
-import 'package:foriyana_app/data/models/user/product_response_model.dart';
+import 'package:foriyana_app/data/data_sources/user_local_data_source.dart';
+import 'package:foriyana_app/data/models/commission_response_model.dart';
+import 'package:foriyana_app/data/models/commission_transactions_response_model.dart';
+import 'package:foriyana_app/data/models/paging.dart';
+import 'package:foriyana_app/data/models/product_response_model.dart';
 import 'package:foriyana_app/domain/repositories/profile_repository.dart';
 import 'package:foriyana_app/env/dev.dart';
 
@@ -31,7 +31,7 @@ class CommisionTransactionsError extends CommisionTransactionsState {
 
 class CommisionTransactionsRefresh extends CommisionTransactionsState {
   final List<CommisionTransactionsResponseModelData>
-  refreshedCommisionTransactionss;
+      refreshedCommisionTransactionss;
 
   CommisionTransactionsRefresh(this.refreshedCommisionTransactionss);
 }
@@ -79,10 +79,9 @@ class CommisionTransactionsCubit<T> extends Cubit<CommisionTransactionsState> {
 
         data.addAll(
           res.where(
-            (newItem) =>
-                !data.any(
-                  (item) => item.transaction?.id == newItem.transaction?.id,
-                ),
+            (newItem) => !data.any(
+              (item) => item.transaction?.id == newItem.transaction?.id,
+            ),
           ),
         );
         emit(
