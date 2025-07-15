@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:foriyana_app/core/router/app_router.dart';
 import 'package:foriyana_app/core/util/appdevice.dart';
 import 'package:foriyana_app/core/util/appversion.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -16,18 +17,8 @@ import 'package:foriyana_app/generated/l10n.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/auth_cubit.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/language_cubit.dart';
 import 'package:foriyana_app/presentation/views/home/home_page.dart';
-import 'package:foriyana_app/presentation/views/login/create_new_password_page.dart';
-import 'package:foriyana_app/presentation/views/login/forgot_password_page.dart';
 import 'package:foriyana_app/presentation/views/login/login_page.dart';
-import 'package:foriyana_app/presentation/views/login/otp_page.dart';
-import 'package:foriyana_app/presentation/views/login/signup_page.dart';
-import 'package:foriyana_app/presentation/views/notification/notification_page.dart';
-import 'package:foriyana_app/presentation/views/order/cart_page.dart';
-import 'package:foriyana_app/presentation/views/order/order_page.dart';
-import 'package:foriyana_app/presentation/views/order/product_detail_page.dart';
-import 'package:foriyana_app/presentation/views/startup/startup_page.dart';
 import 'package:foriyana_app/presentation/views/startup/welcome_page.dart';
-import 'package:foriyana_app/presentation/views/support/support_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Ensures Flutter is initialized
@@ -100,21 +91,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               home: AuthWrapper(),
               navigatorKey: Constant.getNavigatorKey(),
-              routes: {
-                "/sign-in": (context) => LoginPage(),
-                "/sign-up": (context) => SignUpPage(),
-                "/forgot-password": (context) => ForgotPasswordPage(),
-                "/create-new-password": (context) => CreateNewPasswordPage(),
-                "/otp": (context) => OtpPage(),
-                "/welcome": (context) => WelcomePage(),
-                "/startup": (context) => StartupPage(),
-                "/home": (context) => HomePage(),
-                "/order": (context) => OrderPage(),
-                "/product-detail": (context) => ProductDetailPage(),
-                "/cart": (context) => CartPage(),
-                "/support": (context) => SupportPage(),
-                "/notification": (context) => NotificationPage(),
-              },
+              routes: AppRouter.onGenerateRoute(),
               onGenerateRoute: (settings) {
                 final args = settings.arguments as Map<String, dynamic>?;
                 // if (settings.name == '/policy-insurance') {}

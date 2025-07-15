@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:foriyana_app/core/router/app_router.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
@@ -73,7 +74,7 @@ class SignUpPage extends StatelessWidget {
               Center(
                 child: TextButton(
                   onPressed: () {
-                    // Navigate to login
+                    Navigator.pushReplacementNamed(context, AppRouter.signIn);
                   },
                   child: RichText(
                     text: TextSpan(

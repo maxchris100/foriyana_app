@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-// import '../../presentation/views/main/home/filter/filter_view.dart';
-// import '../../presentation/views/authentication/signin_view.dart';
-// import '../../presentation/views/authentication/signup_view.dart';
-// import '../../presentation/views/main/main_view.dart';
-// import '../../presentation/views/main/other/about/about_view.dart';
-// import '../../presentation/views/main/other/delivery_info/delivery_info.dart';
-// import '../../presentation/views/main/other/notification/notification_view.dart';
-// import '../../presentation/views/main/other/orders/order_view.dart';
-// import '../../presentation/views/main/other/profile/profile_screen.dart';
-// import '../../presentation/views/main/other/settings/settings_view.dart';
-// import '../../presentation/views/order_chekout/order_checkout_view.dart';
-// import '../../presentation/views/product/product_details_view.dart';
-import '../error/exceptions.dart';
+import 'package:foriyana_app/presentation/views/home/home_page.dart';
+import 'package:foriyana_app/presentation/views/login/create_new_password_page.dart';
+import 'package:foriyana_app/presentation/views/login/forgot_password_page.dart';
+import 'package:foriyana_app/presentation/views/login/login_page.dart';
+import 'package:foriyana_app/presentation/views/login/otp_page.dart';
+import 'package:foriyana_app/presentation/views/login/signup_page.dart';
+import 'package:foriyana_app/presentation/views/notification/notification_page.dart';
+import 'package:foriyana_app/presentation/views/order/cart_page.dart';
+import 'package:foriyana_app/presentation/views/order/order_detail_page.dart';
+import 'package:foriyana_app/presentation/views/order/order_page.dart';
+import 'package:foriyana_app/presentation/views/order/product_detail_page.dart';
+import 'package:foriyana_app/presentation/views/order/rate_product_page.dart';
+import 'package:foriyana_app/presentation/views/order/track_order_page.dart';
+import 'package:foriyana_app/presentation/views/profile/wishlist_page.dart';
+import 'package:foriyana_app/presentation/views/startup/startup_page.dart';
+import 'package:foriyana_app/presentation/views/startup/welcome_page.dart';
+import 'package:foriyana_app/presentation/views/profile/support_page.dart';
 
 class AppRouter {
   //main menu
@@ -27,9 +31,11 @@ class AppRouter {
   //other
   static const String userProfile = '/user-profile';
   static const String orderCheckout = '/order-checkout';
-  static const String deliveryDetails = '/delivery-details';
-  static const String orders = '/orders';
+  static const String trackOrder = '/track-order';
+  static const String order = '/order';
+  static const String orderDetail = '/order-detail';
   static const String cart = '/cart';
+  static const String rateProduct = '/rate-product';
   static const String settings = '/settings';
   static const String notification = '/notification';
   static const String about = '/about';
@@ -37,44 +43,25 @@ class AppRouter {
   static const String createNewPassword = '/create-new-password';
   static const String filter = '/filter';
 
-  static Route<dynamic> onGenerateRoute(RouteSettings routeSettings) {
-    switch (routeSettings.name) {
-      // case home:
-      //   return MaterialPageRoute(builder: (_) => const MainView());
-      // case signIn:
-      //   return MaterialPageRoute(builder: (_) => const SignInView());
-      // case signUp:
-      //   return MaterialPageRoute(builder: (_) => const SignUpScreen());
-      // case productDetails:
-      //   Product product = routeSettings.arguments as Product;
-      //   return MaterialPageRoute(
-      //       builder: (_) => ProductDetailsView(product: product));
-      // case userProfile:
-      //   User user = routeSettings.arguments as User;
-      //   return MaterialPageRoute(
-      //       builder: (_) => UserProfileScreen(
-      //             user: user,
-      //           ));
-      // case orderCheckout:
-      //   List<CartItem> items = routeSettings.arguments as List<CartItem>;
-      //   return MaterialPageRoute(
-      //       builder: (_) => OrderCheckoutView(
-      //             items: items,
-      //           ));
-      // case deliveryDetails:
-      //   return MaterialPageRoute(builder: (_) => const DeliveryInfoView());
-      // case orders:
-      //   return MaterialPageRoute(builder: (_) => const OrderView());
-      // case settings:
-      //   return MaterialPageRoute(builder: (_) => const SettingsView());
-      // case notifications:
-      //   return MaterialPageRoute(builder: (_) => const NotificationView());
-      // case about:
-      //   return MaterialPageRoute(builder: (_) => const AboutView());
-      // case filter:
-      //   return MaterialPageRoute(builder: (_) => const FilterView());
-      default:
-        throw const RouteException('Route not found!');
-    }
+  static Map<String, Widget Function(BuildContext)> onGenerateRoute() {
+    return {
+      "/sign-in": (context) => LoginPage(),
+      "/sign-up": (context) => SignUpPage(),
+      "/forgot-password": (context) => ForgotPasswordPage(),
+      "/create-new-password": (context) => CreateNewPasswordPage(),
+      "/otp": (context) => OtpPage(),
+      "/welcome": (context) => WelcomePage(),
+      "/startup": (context) => StartupPage(),
+      "/home": (context) => HomePage(),
+      "/product-detail": (context) => ProductDetailPage(),
+      "/track-order": (context) => TrackOrderPage(),
+      "/cart": (context) => CartPage(),
+      // "/order": (context) => OrderPage(),
+      "/wishlist": (context) => WishlistPage(),
+      "/order-detail": (context) => OrderDetailPage(),
+      "/rate-product": (context) => RateProductPage(),
+      "/support": (context) => SupportPage(),
+      "/notification": (context) => NotificationPage(),
+    };
   }
 }

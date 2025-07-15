@@ -165,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                 Center(
                   child: TextButton(
                     onPressed: () {
-                      // Navigate to login
+                      Navigator.pushReplacementNamed(context, AppRouter.signUp);
                     },
                     child: RichText(
                       text: TextSpan(

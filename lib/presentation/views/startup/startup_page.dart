@@ -26,20 +26,64 @@ class _StartupPageState extends State<StartupPage> {
         child: Column(
           children: [
             const SizedBox(height: 24),
-            Text(
-              "Explore your true style",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              "Relax and let us bring the style to you",
-              style: TextStyle(
-                fontSize: 14,
-              ),
-            ),
+            _currentIndex == 0
+                ? Container(
+                    child: Column(
+                      children: [
+                        Text(
+                          "Discover something new",
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          "Special new arrivals just for you",
+                          style: TextStyle(fontSize: 14, color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  )
+                : _currentIndex == 1
+                    ? Container(
+                        child: Column(
+                          children: [
+                            Text(
+                              "Update trendy outfit",
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "Favorite brands and hottest trends",
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      )
+                    : Container(
+                        child: Column(
+                          children: [
+                            Text(
+                              "Explore your true style",
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "Relax and let us bring the style to you",
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
             const SizedBox(height: 24),
             Expanded(
               child: PageView.builder(
