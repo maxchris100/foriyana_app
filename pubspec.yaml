@@ -30,8 +30,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0 
   shared_preferences: ^2.0.17 
   flutter_bloc: ^9.0.0
-  get_it: ^8.0.3
-  # http: ^0.13.3
+  get_it: ^8.0.3 
   jwt_decoder: ^2.0.1 
   dio: 
   flutter_alice: ^2.0.1
