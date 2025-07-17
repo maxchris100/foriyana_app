@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/auth_cubit.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/profile_cubit.dart';
+import 'package:foriyana_app/presentation/widgets/banner_carousel.dart';
 import 'package:foriyana_app/presentation/widgets/feature_product.dart';
 import 'package:foriyana_app/presentation/widgets/recommended_product.dart';
 import 'package:foriyana_app/presentation/widgets/top_collection.dart';
@@ -51,9 +52,6 @@ class _HomeTabState extends State<HomeTab> {
           padding: const EdgeInsets.all(16.0),
           child: ListView(
             children: [
-              SizedBox(
-                height: 90,
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(categories.length, (index) {
@@ -69,20 +67,30 @@ class _HomeTabState extends State<HomeTab> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Container(
-                            padding: const EdgeInsets.all(12),
+                            padding: EdgeInsets.all(6),
                             decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: selectedCategoryIndex == index
-                                  ? Colors.black
-                                  : Colors.grey.shade200,
-                            ),
-                            child: SvgPicture.asset(
-                              category['icon']!,
-                              color: selectedCategoryIndex == index
-                                  ? Colors.white
-                                  : Colors.black,
-                              width: 24,
-                              height: 24,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: selectedCategoryIndex == index
+                                      ? Colors.black
+                                      : Colors.transparent,
+                                )),
+                            child: Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: selectedCategoryIndex == index
+                                    ? Colors.black
+                                    : Colors.grey.shade200,
+                              ),
+                              child: SvgPicture.asset(
+                                category['icon']!,
+                                color: selectedCategoryIndex == index
+                                    ? Colors.white
+                                    : Colors.black26,
+                                width: 24,
+                                height: 24,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 8),

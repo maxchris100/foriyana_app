@@ -8,6 +8,7 @@ import 'package:foriyana_app/presentation/views/home/home_tab.dart';
 import 'package:foriyana_app/presentation/views/home/profile_tab.dart';
 import 'package:foriyana_app/presentation/views/home/search_tab.dart';
 import 'package:foriyana_app/presentation/widgets/app_drawer.dart';
+import 'package:foriyana_app/presentation/widgets/filter_drawer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,7 +26,14 @@ class _HomePageState extends State<HomePage> {
   ];
 
   void _onItemTapped(int index) {
-    homeCubit.changeTab(index);
+    homeCubit.changeTab(index,
+        menu: index == 0
+            ? "HomePage"
+            : index == 1
+                ? "Discover"
+                : index == 2
+                    ? "My Order"
+                    : "My Profile");
   }
 
   HomeCubit homeCubit = HomeCubit();
@@ -41,6 +49,7 @@ class _HomePageState extends State<HomePage> {
         child: BlocBuilder<HomeCubit, HomeState>(builder: (context2, state) {
           return Scaffold(
             appBar: AppBar(
+              scrolledUnderElevation: 0,
               title: const Text("M-Mart",
                   style: TextStyle(fontWeight: FontWeight.bold)),
               centerTitle: true,
@@ -67,7 +76,8 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             body: _pages[homeCubit.state.selectedIndex],
-            drawer: const AppDrawer(selectedMenu: "Homepage"),
+            drawer: AppDrawer(selectedMenu: homeCubit.state.selectedMenu),
+            endDrawer: FilterDrawer(),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: homeCubit.state.selectedIndex,
               onTap: _onItemTapped,

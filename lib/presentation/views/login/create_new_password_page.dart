@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foriyana_app/core/router/app_router.dart';
+import 'package:foriyana_app/presentation/widgets/button_back.dart';
 
 class CreateNewPasswordPage extends StatefulWidget {
   const CreateNewPasswordPage({super.key});
@@ -91,7 +92,7 @@ class _CreateNewPasswordPageState extends State<CreateNewPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(color: Colors.black),
+        leading: ButtonBack(),
         backgroundColor: Colors.white,
         elevation: 0,
       ),

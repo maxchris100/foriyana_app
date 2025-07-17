@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foriyana_app/presentation/widgets/button_back.dart';
 
 class CheckoutCompletePage extends StatelessWidget {
   const CheckoutCompletePage({super.key});
@@ -11,10 +12,7 @@ class CheckoutCompletePage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
+        leading: ButtonBack(),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),

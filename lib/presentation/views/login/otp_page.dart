@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foriyana_app/core/router/app_router.dart';
+import 'package:foriyana_app/presentation/widgets/button_back.dart';
 import 'package:http/http.dart' as http;
 import 'package:foriyana_app/data/data_sources/user_local_data_source.dart';
 import 'package:foriyana_app/data/models/auth_response_model.dart';
@@ -292,7 +293,7 @@ class _OtpPageState extends State<OtpPage> with WidgetsBindingObserver {
       create: (_) => OtpCubit()..startTimer(),
       child: Scaffold(
         appBar: AppBar(
-          leading: BackButton(color: Colors.black),
+          leading: ButtonBack(),
           backgroundColor: Colors.white,
           elevation: 0,
         ),

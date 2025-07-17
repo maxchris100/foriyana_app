@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foriyana_app/core/router/app_router.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/auth_cubit.dart';
-
 import 'package:foriyana_app/presentation/blocs/cubit/profile_cubit.dart';
-
-import 'package:foriyana_app/presentation/widgets/app_drawer.dart';
-import 'package:foriyana_app/presentation/widgets/feature_product.dart';
-import 'package:foriyana_app/presentation/widgets/recommended_product.dart';
-import 'package:foriyana_app/presentation/widgets/top_collection.dart';
+import 'package:foriyana_app/presentation/widgets/filter_drawer.dart';
 
 class SearchTab extends StatefulWidget {
   const SearchTab({super.key});
@@ -21,22 +16,22 @@ class _SearchTabState extends State<SearchTab> {
   final categories = [
     {
       "title": "CLOTHING",
-      "image": "assets/images/clothing.jpg",
+      "image": "assets/images/clothing.png",
       "color": const Color(0xFFB3B2A3),
     },
     {
       "title": "ACCESSORIES",
-      "image": "assets/images/accessories.jpg",
+      "image": "assets/images/accessories.png",
       "color": const Color(0xFF9E918F),
     },
     {
       "title": "SHOES",
-      "image": "assets/images/shoes.jpg",
+      "image": "assets/images/shoes.png",
       "color": const Color(0xFF3F4A52),
     },
     {
       "title": "COLLECTION",
-      "image": "assets/images/collection.jpg",
+      "image": "assets/images/collection.png",
       "color": const Color(0xFFD1C4C1),
     },
   ];
@@ -66,7 +61,7 @@ class _SearchTabState extends State<SearchTab> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              _buildSearchBar(),
+              _buildSearchBar(context),
               const SizedBox(height: 20),
               Expanded(
                 child: ListView.builder(
@@ -89,7 +84,7 @@ class _SearchTabState extends State<SearchTab> {
   }
 }
 
-Widget _buildSearchBar() {
+Widget _buildSearchBar(BuildContext context) {
   return Row(
     children: [
       Expanded(
@@ -105,9 +100,12 @@ Widget _buildSearchBar() {
               ),
             ],
           ),
-          child: const TextField(
+          child: TextField(
             decoration: InputDecoration(
-              icon: Icon(Icons.search),
+              icon: SvgPicture.asset(
+                "assets/icons/home_search.svg",
+                color: Colors.grey[500],
+              ),
               hintText: "Search",
               border: InputBorder.none,
             ),
@@ -115,20 +113,28 @@ Widget _buildSearchBar() {
         ),
       ),
       const SizedBox(width: 12),
-      Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade200,
-              blurRadius: 6,
+      Builder(builder: (context) {
+        return GestureDetector(
+          onTap: () {
+            Scaffold.of(context).openEndDrawer();
+          },
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade200,
+                  blurRadius: 6,
+                ),
+              ],
             ),
-          ],
-        ),
-        child: const Icon(Icons.tune),
-      )
+            child: SvgPicture.asset("assets/icons/filter.svg",
+                color: Colors.grey[500]),
+          ),
+        );
+      })
     ],
   );
 }
@@ -154,7 +160,7 @@ Widget _buildCategoryCard({
       alignment: Alignment.centerLeft,
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Text(
-        title,
+        "", //title,
         style: const TextStyle(
           fontSize: 18,
           color: Colors.white,

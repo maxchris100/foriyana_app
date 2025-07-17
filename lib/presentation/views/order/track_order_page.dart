@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:foriyana_app/presentation/widgets/button_back.dart';
 
 class TrackOrderPage extends StatelessWidget {
   const TrackOrderPage({super.key});
@@ -16,7 +18,7 @@ class TrackOrderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(color: Colors.black),
+        leading: ButtonBack(),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
@@ -95,28 +97,36 @@ class TrackOrderPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey.shade300),
+                border: Border.all(color: Colors.grey.shade100),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
-                children: const [
-                  Icon(Icons.star_rate, color: Colors.amber),
-                  SizedBox(width: 12),
+                children: [
+                  const Icon(Icons.star_rate, color: Colors.amber),
+                  const SizedBox(width: 12),
                   Expanded(
-                    child: Text.rich(
-                      TextSpan(
-                        text: "Don’t forget to rate\n",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        children: [
-                          TextSpan(
-                            text: "Rate product to get 5 points for collect.",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 13,
-                            ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Don’t forget to rate",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "Rate product to get 5 points for collect.",
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 13,
                           ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Row(
+                          children: List.generate(
+                              5, (index) => _buildStar(index + 1)),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -124,6 +134,18 @@ class TrackOrderPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildStar(int index) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 5),
+      child: SvgPicture.asset(
+        "assets/icons/star.svg",
+        color: Colors.grey[300],
+        height: 16,
+        width: 16,
       ),
     );
   }

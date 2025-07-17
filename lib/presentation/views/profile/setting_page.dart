@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foriyana_app/core/router/app_router.dart';
 import 'package:foriyana_app/presentation/widgets/app_drawer.dart';
+import 'package:foriyana_app/presentation/widgets/button_back.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -9,26 +11,15 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Setting',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            )),
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        elevation: 0,
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: SvgPicture.asset("assets/icons/menu.svg"),
-              onPressed: () {
-                Scaffold.of(context)
-                    .openDrawer(); // context di sini sudah benar
-              },
-            );
-          },
-        ),
-      ),
+          title: const Text('Setting',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              )),
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          elevation: 0,
+          leading: ButtonBack()),
       drawer: const AppDrawer(selectedMenu: "Setting"),
       backgroundColor: Colors.white,
       body: ListView(
@@ -40,6 +31,9 @@ class SettingPage extends StatelessWidget {
           SettingItem(
             icon: SvgPicture.asset("assets/icons/notification.svg"),
             title: 'Notification',
+            onTap: () {
+              Navigator.pushNamed(context, AppRouter.notification);
+            },
           ),
           SettingItem(
             icon: SvgPicture.asset("assets/icons/tnc.svg"),
@@ -52,6 +46,9 @@ class SettingPage extends StatelessWidget {
           SettingItem(
             icon: SvgPicture.asset("assets/icons/support.svg"),
             title: 'Chat support',
+            onTap: () {
+              Navigator.pushNamed(context, AppRouter.support);
+            },
           ),
         ],
       ),
@@ -62,25 +59,20 @@ class SettingPage extends StatelessWidget {
 class SettingItem extends StatelessWidget {
   final Widget icon;
   final String title;
+  final VoidCallback? onTap;
 
-  const SettingItem({
-    super.key,
-    required this.icon,
-    required this.title,
-  });
+  const SettingItem(
+      {super.key, required this.icon, required this.title, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         ListTile(
-          leading: icon,
-          title: Text(title),
-          trailing: const Icon(Icons.chevron_right),
-          onTap: () {
-            // TODO: Add navigation or functionality
-          },
-        ),
+            leading: icon,
+            title: Text(title),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: onTap),
         const Divider(height: 1, thickness: 0.4),
       ],
     );

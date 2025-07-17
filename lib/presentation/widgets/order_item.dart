@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:foriyana_app/core/router/app_router.dart';
+import 'package:foriyana_app/core/util/string_util.dart';
 
 class OrderItem extends StatelessWidget {
-  const OrderItem({super.key});
+  final item;
+  const OrderItem({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -61,13 +64,22 @@ class OrderItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "WAITING PAYMENT",
-                style: const TextStyle(
-                    color: Colors.green, fontWeight: FontWeight.bold),
+                StringUtil.castToString(item["status"]).toUpperCase(),
+                style: TextStyle(
+                    color: item["status"] == "Delivered"
+                        ? Colors.green
+                        : Colors.red,
+                    fontWeight: FontWeight.bold),
               ),
               OutlinedButton(
-                onPressed: () {},
-                child: const Text('Details'),
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRouter.orderDetail,
+                      arguments: {"item": item});
+                },
+                child: const Text(
+                  'Details',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foriyana_app/core/router/app_router.dart';
+import 'package:foriyana_app/presentation/widgets/button_back.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -28,7 +29,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(color: Colors.black),
+        leading: ButtonBack(),
         backgroundColor: Colors.white,
         elevation: 0,
       ),

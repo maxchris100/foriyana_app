@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foriyana_app/presentation/widgets/button_back.dart';
 import 'package:foriyana_app/presentation/widgets/cart_item.dart';
 
 class CartPage extends StatelessWidget {
@@ -39,10 +40,7 @@ class CartPage extends StatelessWidget {
         title: const Text("Your Cart",
             style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new),
-          onPressed: () {},
-        ),
+        leading: ButtonBack(),
         elevation: 0,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,

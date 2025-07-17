@@ -13,7 +13,7 @@ class CartTab extends StatefulWidget {
 }
 
 class _CartTabState extends State<CartTab> with TickerProviderStateMixin {
-  String selectedFilter = 'DELIVERED'; // default filter
+  String selectedFilter = 'Delivered'; // default filter
 
   final List<Map<String, dynamic>> _orders = [
     {
@@ -22,7 +22,15 @@ class _CartTabState extends State<CartTab> with TickerProviderStateMixin {
       'trackingNumber': 'IK987362341',
       'quantity': 2,
       'subtotal': 110,
-      'status': 'DELIVERED',
+      'status': 'Pending',
+    },
+    {
+      'orderId': '#1514',
+      'date': '13/05/2021',
+      'trackingNumber': 'IK987362341',
+      'quantity': 2,
+      'subtotal': 110,
+      'status': 'Delivered',
     },
     {
       'orderId': '#1679',
@@ -30,7 +38,15 @@ class _CartTabState extends State<CartTab> with TickerProviderStateMixin {
       'trackingNumber': 'IK3873218890',
       'quantity': 3,
       'subtotal': 450,
-      'status': 'DELIVERED',
+      'status': 'Delivered',
+    },
+    {
+      'orderId': '#1679',
+      'date': '12/05/2021',
+      'trackingNumber': 'IK3873218890',
+      'quantity': 3,
+      'subtotal': 450,
+      'status': 'Cancelled',
     },
   ];
 
@@ -61,7 +77,6 @@ class _CartTabState extends State<CartTab> with TickerProviderStateMixin {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              const SizedBox(height: 16),
               _buildFilterButtons(),
               const SizedBox(height: 16),
               Expanded(
@@ -75,9 +90,10 @@ class _CartTabState extends State<CartTab> with TickerProviderStateMixin {
                           return GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(
-                                    context, AppRouter.orderDetail);
+                                    context, AppRouter.orderDetail,
+                                    arguments: {"item": order});
                               },
-                              child: OrderItem());
+                              child: OrderItem(item: order));
                         },
                       ),
               ),
@@ -89,7 +105,7 @@ class _CartTabState extends State<CartTab> with TickerProviderStateMixin {
   }
 
   Widget _buildFilterButtons() {
-    final filters = ['Pending', 'DELIVERED', 'Cancelled'];
+    final filters = ['Pending', 'Delivered', 'Cancelled'];
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:foriyana_app/core/router/app_router.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/auth_cubit.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/profile_cubit.dart';
 import 'package:foriyana_app/presentation/widgets/feature_product.dart';
@@ -43,12 +45,13 @@ class _ProfileTabState extends State<ProfileTab> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const CircleAvatar(
-                        radius: 30,
-                        backgroundColor: Colors.pinkAccent,
-                        child:
-                            Icon(Icons.person, color: Colors.white, size: 40),
-                      ),
+                      CircleAvatar(
+                          radius: 30,
+                          child: SvgPicture.asset(
+                            "assets/icons/default-avatar.svg",
+                            height: 40,
+                            width: 40,
+                          )),
                       const SizedBox(width: 16),
                       Expanded(
                         child: Column(
@@ -92,31 +95,44 @@ class _ProfileTabState extends State<ProfileTab> {
                         _buildMenuItem(
                           icon: Icons.location_on_outlined,
                           title: "Address",
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, AppRouter.deliveryAddress);
+                          },
                         ),
                         _buildDivider(),
                         _buildMenuItem(
                           icon: Icons.account_balance_wallet_outlined,
                           title: "Payment method",
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, AppRouter.paymentMethod);
+                          },
                         ),
                         _buildDivider(),
                         _buildMenuItem(
                           icon: Icons.favorite_border,
                           title: "My Wishlist",
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRouter.wishlist);
+                          },
                         ),
                         _buildDivider(),
                         _buildMenuItem(
                           icon: Icons.star_border,
                           title: "Rate this app",
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRouter.rateApp);
+                          },
                         ),
                         _buildDivider(),
                         _buildMenuItem(
                           icon: Icons.logout,
                           title: "Log out",
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushReplacementNamed(
+                                context, AppRouter.signIn);
+                          },
                         ),
                       ],
                     ),

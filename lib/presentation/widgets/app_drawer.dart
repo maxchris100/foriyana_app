@@ -27,11 +27,13 @@ class AppDrawer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               child: Row(
                 children: [
-                  const CircleAvatar(
-                    radius: 30,
-                    backgroundImage: AssetImage(
-                        "assets/images/avatar.png"), // Ganti dengan path kamu
-                  ),
+                  CircleAvatar(
+                      radius: 30,
+                      child: SvgPicture.asset(
+                        "assets/icons/default-avatar.svg",
+                        height: 40,
+                        width: 40,
+                      )),
                   const SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,23 +55,23 @@ class AppDrawer extends StatelessWidget {
             // Menu Items
             _buildMenuItem(context, "assets/icons/home_home.svg", "Homepage",
                 onTap: () {
-              homeCubit.changeTab(0);
+              homeCubit.changeTab(0, menu: "Homepage");
               Navigator.pop(context);
             }),
             _buildMenuItem(context, "assets/icons/home_search.svg", "Discover",
                 onTap: () {
-              homeCubit.changeTab(1);
+              homeCubit.changeTab(1, menu: "Discover");
               Navigator.pop(context);
             }),
             _buildMenuItem(context, "assets/icons/home_cart.svg", "My Order",
                 onTap: () {
-              homeCubit.changeTab(2);
+              homeCubit.changeTab(2, menu: "My Order");
               Navigator.pop(context);
             }),
             _buildMenuItem(
                 context, "assets/icons/home_profile.svg", "My Profile",
                 onTap: () {
-              homeCubit.changeTab(3);
+              homeCubit.changeTab(3, menu: "My Profile");
               Navigator.pop(context);
             }),
 

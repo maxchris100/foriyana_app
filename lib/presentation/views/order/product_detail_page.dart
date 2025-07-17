@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:foriyana_app/presentation/views/order/product_detail_review.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key});
@@ -22,7 +24,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xfff9f9f9),
       body: Stack(
         children: [
           Column(
@@ -32,7 +33,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               Image.asset(
                 'assets/images/startup1.webp',
                 height: 300,
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
               ),
               Expanded(
                 child: _buildDetails(context),
@@ -81,33 +82,56 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             const SizedBox(height: 12),
             _buildRating(),
             const SizedBox(height: 12),
-            _buildColorSelector(),
-            const SizedBox(height: 16),
-            _buildSizeSelector(),
-            const Divider(height: 24),
-            ExpansionTile(
-              title: const Text("Description"),
-              children: const [
-                Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Text(
-                    "Soft cotton sportwear set, comfortable for daily wear or light training activities.",
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ),
+            Row(
+              children: [
+                Expanded(child: _buildColorSelector()),
+                const SizedBox(width: 16),
+                Expanded(child: _buildSizeSelector())
               ],
             ),
-            ExpansionTile(
-              title: const Text("Reviews"),
-              children: const [
-                Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Text(
-                    "⭐️⭐️⭐️⭐️⭐️  - Very comfy and stylish!\n⭐️⭐️⭐️⭐️   - Good material but size runs small.",
-                    style: TextStyle(fontSize: 14),
-                  ),
+            Divider(
+              height: 8,
+              color: Colors.grey[300]!,
+            ),
+            Theme(
+              data:
+                  Theme.of(context).copyWith(dividerColor: Colors.transparent),
+              child: ExpansionTile(
+                trailing: Icon(
+                  Icons.keyboard_arrow_right,
                 ),
-              ],
+                title: const Text("Description"),
+                tilePadding: EdgeInsets.symmetric(vertical: 8),
+                childrenPadding: EdgeInsets.symmetric(vertical: 8),
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(
+                      "Soft cotton sportwear set, comfortable for daily wear or light training activities.",
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Divider(
+              height: 8,
+              color: Colors.grey[300]!,
+            ),
+            Theme(
+              data:
+                  Theme.of(context).copyWith(dividerColor: Colors.transparent),
+              child: ExpansionTile(
+                trailing: Icon(
+                  Icons.keyboard_arrow_right,
+                ),
+                tilePadding: EdgeInsets.symmetric(vertical: 8),
+                childrenPadding: EdgeInsets.symmetric(vertical: 8),
+                title: const Text("Reviews"),
+                children: const [
+                  ReviewSectionWidget(),
+                ],
+              ),
             ),
           ],
         ),
@@ -159,7 +183,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               return GestureDetector(
                 onTap: () => setState(() => selectedColor = index),
                 child: Container(
-                  margin: const EdgeInsets.only(right: 12),
+                  margin: const EdgeInsets.only(right: 6),
                   padding: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
@@ -195,12 +219,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               return GestureDetector(
                 onTap: () => setState(() => selectedSize = index),
                 child: Container(
-                  margin: const EdgeInsets.only(right: 12),
+                  margin: const EdgeInsets.only(right: 6),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   decoration: BoxDecoration(
                     color: selected ? Colors.black : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(50),
                   ),
                   child: Text(
                     sizeOptions[index],
@@ -223,11 +247,25 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       left: 0,
       right: 0,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16)
-            .copyWith(bottom: 16, top: 8),
-        color: Colors.white,
+        height: 60,
+        decoration: const BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              offset: Offset(0, -1),
+              blurRadius: 6,
+            ),
+          ],
+        ),
         child: ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: () {
+            //add to cart
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.black,
             minimumSize: const Size.fromHeight(50),
@@ -235,8 +273,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          icon: const Icon(Icons.shopping_bag),
-          label: const Text("Add To Cart"),
+          icon: SvgPicture.asset("assets/icons/shopping_bag.svg"),
+          label: const Text(
+            "Add To Cart",
+            style: TextStyle(color: Colors.white),
+          ),
         ),
       ),
     );

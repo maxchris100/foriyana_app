@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class BannerCarouselPage extends StatelessWidget {
-  BannerCarouselPage({super.key});
+class BannerCarouselSection extends StatefulWidget {
+  const BannerCarouselSection({super.key});
 
+  @override
+  State<BannerCarouselSection> createState() => _BannerCarouselSectionState();
+}
+
+class _BannerCarouselSectionState extends State<BannerCarouselSection> {
+  int _currentIndex = 0;
   final List<Map<String, String>> banners = [
     {
       'image': 'assets/images/autumn_banner1.png',
@@ -24,73 +30,95 @@ class BannerCarouselPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Banner Carousel'),
-      ),
-      body: Center(
-        child: CarouselSlider(
-          options: CarouselOptions(
-            height: 200,
-            autoPlay: true,
-            enlargeCenterPage: true,
-            viewportFraction: 0.85,
-          ),
-          items: banners.map((banner) {
-            return Builder(
-              builder: (context) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    image: DecorationImage(
-                      image: AssetImage(banner['image']!),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
+    return SizedBox(
+      height: 250,
+      child: CarouselSlider(
+        options: CarouselOptions(
+          height: 200,
+          autoPlay: true,
+          enlargeCenterPage: true,
+          viewportFraction: 0.95,
+          onPageChanged: (index, _) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+        ),
+        items: banners.map((banner) {
+          return Builder(
+            builder: (context) {
+              return Stack(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [
-                          Colors.black.withOpacity(0.6),
-                          Colors.transparent,
-                        ],
+                      image: DecorationImage(
+                        image: AssetImage(banner['image']!),
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            banner['title']!,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.brown),
+                      child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              banner['title']!,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          Text(
-                            banner['subtitle']!,
-                            style: const TextStyle(
-                              color: Colors.white70,
-                              fontSize: 14,
+                            Text(
+                              banner['subtitle']!,
+                              style: const TextStyle(
+                                color: Colors.white70,
+                                fontSize: 14,
+                              ),
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              height: 12,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                );
-              },
-            );
-          }).toList(),
-        ),
+                  Positioned(
+                      bottom: 8,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(banners.length, (index) {
+                            return Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 4),
+                              width: 8,
+                              height: 8,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: _currentIndex == index
+                                    ? Colors.white
+                                    : Colors.white38,
+                              ),
+                            );
+                          }),
+                        ),
+                      ))
+                ],
+              );
+            },
+          );
+        }).toList(),
       ),
     );
   }

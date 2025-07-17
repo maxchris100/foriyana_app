@@ -12,6 +12,8 @@ import 'package:foriyana_app/presentation/views/order/order_page.dart';
 import 'package:foriyana_app/presentation/views/order/product_detail_page.dart';
 import 'package:foriyana_app/presentation/views/order/rate_product_page.dart';
 import 'package:foriyana_app/presentation/views/order/track_order_page.dart';
+import 'package:foriyana_app/presentation/views/profile/delivery_address_page.dart';
+import 'package:foriyana_app/presentation/views/profile/rate_app_page.dart';
 import 'package:foriyana_app/presentation/views/profile/setting_page.dart';
 import 'package:foriyana_app/presentation/views/profile/wishlist_page.dart';
 import 'package:foriyana_app/presentation/views/startup/startup_page.dart';
@@ -34,11 +36,15 @@ class AppRouter {
   //products
   static const String productDetail = '/product-detail';
   //other
+  static const String rateApp = '/rate-app';
+  static const String deliveryAddress = '/delivery-address';
+  static const String paymentMethod = '/payment-method';
   static const String userProfile = '/user-profile';
   static const String orderCheckout = '/order-checkout';
   static const String trackOrder = '/track-order';
   static const String order = '/order';
   static const String orderDetail = '/order-detail';
+  static const String wishlist = '/wishlist';
   static const String cart = '/cart';
   static const String rateProduct = '/rate-product';
   static const String settings = '/settings';
@@ -57,6 +63,9 @@ class AppRouter {
       "/welcome": (context) => WelcomePage(),
       "/startup": (context) => StartupPage(),
       "/home": (context) => HomePage(),
+      deliveryAddress: (context) => DeliveryAddressPage(),
+      rateApp: (context) => RateAppPage(),
+      paymentMethod: (context) => CartPage(),
       "/product-detail": (context) => ProductDetailPage(),
       "/track-order": (context) => TrackOrderPage(),
       "/cart": (context) => CartPage(),

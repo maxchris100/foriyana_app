@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foriyana_app/presentation/widgets/button_back.dart';
 
 class RateProductPage extends StatefulWidget {
   const RateProductPage({super.key});
@@ -13,17 +15,17 @@ class _RateProductPageState extends State<RateProductPage> {
 
   Widget _buildStar(int index) {
     return IconButton(
-      onPressed: () {
-        setState(() {
-          _rating = index;
-        });
-      },
-      icon: Icon(
-        Icons.star,
-        color: index <= _rating ? Colors.teal : Colors.grey[300],
-        size: 32,
-      ),
-    );
+        onPressed: () {
+          setState(() {
+            _rating = index;
+          });
+        },
+        icon: SvgPicture.asset(
+          "assets/icons/star.svg",
+          color: index <= _rating ? Colors.teal : Colors.grey[300],
+          height: 32,
+          width: 32,
+        ));
   }
 
   void _submitReview() {
@@ -37,7 +39,7 @@ class _RateProductPageState extends State<RateProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(color: Colors.black),
+        leading: ButtonBack(),
         backgroundColor: Colors.white,
         elevation: 0,
         title: const Text(
@@ -58,8 +60,8 @@ class _RateProductPageState extends State<RateProductPage> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
-                children: const [
-                  Icon(Icons.card_giftcard, color: Colors.white),
+                children: [
+                  SvgPicture.asset("assets/icons/gift.svg"),
                   SizedBox(width: 10),
                   Expanded(
                     child: Text(
@@ -99,9 +101,9 @@ class _RateProductPageState extends State<RateProductPage> {
             const SizedBox(height: 20),
             Row(
               children: [
-                _buildUploadBox(Icons.image),
+                _buildUploadBox("assets/icons/photo.svg"),
                 const SizedBox(width: 16),
-                _buildUploadBox(Icons.camera_alt),
+                _buildUploadBox("assets/icons/camera.svg"),
               ],
             ),
             const Spacer(),
@@ -116,7 +118,10 @@ class _RateProductPageState extends State<RateProductPage> {
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: const Text("Submit Review"),
+                child: const Text(
+                  "Submit Review",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ],
@@ -125,15 +130,15 @@ class _RateProductPageState extends State<RateProductPage> {
     );
   }
 
-  Widget _buildUploadBox(IconData icon) {
+  Widget _buildUploadBox(String icon) {
     return Container(
       width: 60,
       height: 60,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Icon(icon, color: Colors.grey),
+      // decoration: BoxDecoration(
+      //   border: Border.all(color: Colors.grey.shade300),
+      //   borderRadius: BorderRadius.circular(10),
+      // ),
+      child: SvgPicture.asset(icon),
     );
   }
 }

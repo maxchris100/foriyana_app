@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/profile_cubit.dart';
+import 'package:foriyana_app/presentation/widgets/button_back.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({super.key});
@@ -42,12 +43,7 @@ class _NotificationPageState extends State<NotificationPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Notification"),
-          leading: IconButton(
-            icon: Icon(CupertinoIcons.chevron_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
+          leading: ButtonBack(),
         ),
         body: ListView(children: []),
       ),

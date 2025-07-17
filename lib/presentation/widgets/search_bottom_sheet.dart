@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class BottomSheetSelector<T> extends StatelessWidget {
   final String label;
@@ -34,23 +35,36 @@ class BottomSheetSelector<T> extends StatelessWidget {
       child: InputDecorator(
         decoration: InputDecoration(
           labelText: label,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(50),
+              borderSide: BorderSide(color: Colors.grey[200]!)),
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              selectedValue != null
-                  ? getLabel(selectedValue!)
-                  : 'Select $label',
-              style: TextStyle(
-                fontSize: 16,
-                color: selectedValue == null ? Colors.grey : Colors.black,
-              ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 8,
+                ),
+                SvgPicture.asset("assets/icons/croptop.svg"),
+                SizedBox(
+                  width: 12,
+                ),
+                Text(
+                  selectedValue != null
+                      ? getLabel(selectedValue!)
+                      : 'Select $label',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: selectedValue == null ? Colors.grey : Colors.black,
+                  ),
+                ),
+              ],
             ),
-            const Icon(Icons.keyboard_arrow_down),
+            SvgPicture.asset("assets/icons/dropdown.svg")
           ],
         ),
       ),
