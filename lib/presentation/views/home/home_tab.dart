@@ -49,7 +49,7 @@ class _HomeTabState extends State<HomeTab> {
       ],
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           child: ListView(
             children: [
               Row(
@@ -111,8 +111,64 @@ class _HomeTabState extends State<HomeTab> {
               ),
               BannerCarouselSection(),
               FeatureProductSection(),
+              SizedBox(
+                height: 16,
+              ),
+              Image.asset("assets/images/banner1.png",
+                  height: 200, fit: BoxFit.cover),
+              SizedBox(
+                height: 16,
+              ),
               RecommendedProductSection(),
-              TopCollectionSection(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  child: Image.asset("assets/images/banner2.png",
+                      height: 180, fit: BoxFit.fitWidth),
+                ),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  child: Image.asset("assets/images/banner3.png",
+                      height: 220, fit: BoxFit.fitWidth),
+                ),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                        child: Image.asset("assets/images/banner4.png",
+                            height: 200, fit: BoxFit.fitWidth),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 12,
+                    ),
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                        child: Image.asset("assets/images/banner5.png",
+                            height: 200, fit: BoxFit.fitWidth),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),

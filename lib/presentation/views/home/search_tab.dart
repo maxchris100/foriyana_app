@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:foriyana_app/core/router/app_router.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/auth_cubit.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/profile_cubit.dart';
 import 'package:foriyana_app/presentation/widgets/filter_drawer.dart';
@@ -69,10 +70,12 @@ class _SearchTabState extends State<SearchTab> {
                   itemBuilder: (context, index) {
                     final item = categories[index];
                     return _buildCategoryCard(
-                      title: item["title"] as String,
-                      image: item["image"] as String,
-                      color: item["color"] as Color,
-                    );
+                        title: item["title"] as String,
+                        image: item["image"] as String,
+                        color: item["color"] as Color,
+                        onTap: () {
+                          Navigator.pushNamed(context, AppRouter.searchDetail);
+                        });
                   },
                 ),
               )
@@ -139,38 +142,41 @@ Widget _buildSearchBar(BuildContext context) {
   );
 }
 
-Widget _buildCategoryCard({
-  required String title,
-  required String image,
-  required Color color,
-}) {
-  return Container(
-    margin: const EdgeInsets.only(bottom: 16),
-    height: 120,
-    decoration: BoxDecoration(
-      color: color,
-      borderRadius: BorderRadius.circular(20),
-      image: DecorationImage(
-        image: AssetImage(image),
-        fit: BoxFit.cover,
-        alignment: Alignment.centerRight,
-      ),
-    ),
+Widget _buildCategoryCard(
+    {required String title,
+    required String image,
+    required Color color,
+    VoidCallback? onTap}) {
+  return GestureDetector(
+    onTap: onTap,
     child: Container(
-      alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Text(
-        "", //title,
-        style: const TextStyle(
-          fontSize: 18,
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          shadows: [
-            Shadow(
-              color: Colors.black26,
-              blurRadius: 4,
-            )
-          ],
+      margin: const EdgeInsets.only(bottom: 16),
+      height: 120,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(20),
+        image: DecorationImage(
+          image: AssetImage(image),
+          fit: BoxFit.cover,
+          alignment: Alignment.centerRight,
+        ),
+      ),
+      child: Container(
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Text(
+          "", //title,
+          style: const TextStyle(
+            fontSize: 18,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            shadows: [
+              Shadow(
+                color: Colors.black26,
+                blurRadius: 4,
+              )
+            ],
+          ),
         ),
       ),
     ),

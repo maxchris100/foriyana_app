@@ -1,5 +1,6 @@
 // ReviewBar Widget
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ReviewSectionWidget extends StatelessWidget {
   const ReviewSectionWidget({super.key});
@@ -55,13 +56,13 @@ class ReviewSectionWidget extends StatelessWidget {
         // Write Review
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             Text('47 Reviews'),
             Row(
               children: [
                 Text('WRITE A REVIEW', style: TextStyle(color: Colors.grey)),
                 SizedBox(width: 4),
-                Icon(Icons.edit, size: 16, color: Colors.grey),
+                SvgPicture.asset("assets/icons/edit.svg")
               ],
             ),
           ],

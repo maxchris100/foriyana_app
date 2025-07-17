@@ -83,7 +83,7 @@ class _CartTabState extends State<CartTab> with TickerProviderStateMixin {
                 child: filteredOrders.isEmpty
                     ? const Center(child: Text('No orders found'))
                     : ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        // padding: const EdgeInsets.symmetric(horizontal: 16),
                         itemCount: filteredOrders.length,
                         itemBuilder: (context, index) {
                           final order = filteredOrders[index];
@@ -120,7 +120,8 @@ class _CartTabState extends State<CartTab> with TickerProviderStateMixin {
               });
             },
             style: TextButton.styleFrom(
-              backgroundColor: isSelected ? Colors.black87 : Colors.grey[300],
+              backgroundColor:
+                  isSelected ? Color(0xff43484B) : Colors.grey[100],
               foregroundColor: isSelected ? Colors.white : Colors.black,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),

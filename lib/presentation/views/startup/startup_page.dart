@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:foriyana_app/core/router/app_router.dart';
+import 'package:foriyana_app/presentation/blocs/cubit/auth_cubit.dart';
 
 class StartupPage extends StatefulWidget {
   const StartupPage({super.key});
@@ -153,8 +155,23 @@ class _StartupPageState extends State<StartupPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, AppRouter.signIn);
+                    onPressed: () async {
+                      setState(() {
+                        _currentIndex++;
+                        _controller.animateToPage(_currentIndex,
+                            duration: Duration(milliseconds: 200),
+                            curve: Curves.easeIn);
+                      });
+                      if (_currentIndex == 3) {
+                        final FlutterSecureStorage secureStorage =
+                            const FlutterSecureStorage();
+
+                        await secureStorage.write(
+                            key: "isFirstTime", value: "1");
+                        Navigator.pushReplacementNamed(
+                            context, AppRouter.signIn);
+                      }
+                      return;
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.grey,

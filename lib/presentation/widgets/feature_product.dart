@@ -16,15 +16,18 @@ class FeatureProductSection extends StatelessWidget {
           title: "Long Sleeve Dress",
           price: 45.00,
           image: "assets/images/startup1.webp"),
-      Product(title: "Sportwear", price: 80.00, image: "assets/sportwear.png"),
+      Product(
+          title: "Sportwear",
+          price: 80.00,
+          image: "assets/images/startup1.webp"),
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildHeader("Feature Products"),
+        _buildHeader(context, "Feature Products"),
         SizedBox(
-          height: 230,
+          height: 250,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -42,14 +45,22 @@ class FeatureProductSection extends StatelessWidget {
                   width: 150,
                   margin: const EdgeInsets.only(right: 16),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset(product.image,
-                          height: 120, fit: BoxFit.cover),
+                      Center(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          child: Image.asset(product.image,
+                              height: 200, fit: BoxFit.cover),
+                        ),
+                      ),
                       const SizedBox(height: 8),
                       Text(product.title,
                           style: const TextStyle(fontWeight: FontWeight.bold)),
                       Text("\$${product.price.toStringAsFixed(2)}",
-                          style: const TextStyle(color: Colors.grey)),
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ),
@@ -61,7 +72,7 @@ class FeatureProductSection extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(String title) {
+  Widget _buildHeader(BuildContext context, String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
@@ -70,7 +81,13 @@ class FeatureProductSection extends StatelessWidget {
           Text(title,
               style:
                   const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-          const Text("Show all", style: TextStyle(color: Colors.grey)),
+          GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, AppRouter.productList,
+                    arguments: {"title": "Feature Product"});
+              },
+              child:
+                  const Text("Show all", style: TextStyle(color: Colors.grey))),
         ],
       ),
     );

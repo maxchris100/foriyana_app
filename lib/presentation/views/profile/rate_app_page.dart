@@ -21,6 +21,7 @@ class _RateAppPageState extends State<RateAppPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: ButtonBack(),
+        leadingWidth: 40,
         centerTitle: true,
         title: const Text(
           "Share your feedback",

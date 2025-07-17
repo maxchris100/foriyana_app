@@ -66,12 +66,45 @@ class _HomePageState extends State<HomePage> {
               ),
               actions: [
                 Padding(
+                  padding: EdgeInsets.only(right: 16),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRouter.cart);
+                    },
+                    child: SvgPicture.asset(
+                      "assets/icons/shopping_bag.svg",
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                Padding(
                     padding: EdgeInsets.only(right: 16),
                     child: GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, AppRouter.notification);
                       },
-                      child: SvgPicture.asset("assets/icons/notification.svg"),
+                      child: Stack(
+                        children: [
+                          SvgPicture.asset(
+                            "assets/icons/notification.svg",
+                            color: Colors.black,
+                          ),
+                          Positioned(
+                            right: 3,
+                            top: 2,
+                            child: Visibility(
+                              visible: true,
+                              child: Container(
+                                height: 8,
+                                width: 8,
+                                decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(50)),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ))
               ],
             ),

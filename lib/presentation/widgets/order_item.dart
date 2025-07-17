@@ -35,7 +35,7 @@ class OrderItem extends StatelessWidget {
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               Text(
-                '',
+                '13/06/2025',
                 style: const TextStyle(color: Colors.grey),
               ),
             ],

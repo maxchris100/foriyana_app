@@ -10,6 +10,7 @@ class DeliveryAddressPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: ButtonBack(),
+        leadingWidth: 40,
         centerTitle: true,
         title: const Text(
           "Delivery address",
@@ -26,14 +27,14 @@ class DeliveryAddressPage extends StatelessWidget {
           const SizedBox(height: 16),
           _AddressCard(
             isSelected: true,
-            icon: Icons.apartment,
+            icon: "assets/icons/address_office.svg",
             title: "My Office",
             address: "SBI Building, street 3, Software Park",
             onEdit: () {},
           ),
           _AddressCard(
             isSelected: false,
-            icon: Icons.home,
+            icon: "assets/icons/address_home.svg",
             title: "My Home",
             address: "SBI Building, street 3, Software Park",
             onEdit: () {},
@@ -50,7 +51,10 @@ class DeliveryAddressPage extends StatelessWidget {
                 minimumSize: const Size.fromHeight(48),
               ),
               onPressed: () {},
-              child: const Text("Add new address"),
+              child: const Text(
+                "Add new address",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           )
         ],
@@ -61,7 +65,7 @@ class DeliveryAddressPage extends StatelessWidget {
 
 class _AddressCard extends StatelessWidget {
   final bool isSelected;
-  final IconData icon;
+  final String icon;
   final String title;
   final String address;
   final VoidCallback onEdit;
@@ -102,7 +106,7 @@ class _AddressCard extends StatelessWidget {
             color: Colors.black,
           ),
           const SizedBox(width: 12),
-          Icon(icon, size: 36),
+          SvgPicture.asset(icon, height: 36),
           const SizedBox(width: 12),
           Expanded(
             child: Column(

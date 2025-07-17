@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foriyana_app/presentation/views/order/product_detail_review.dart';
+import 'package:foriyana_app/presentation/widgets/button_back.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key});
@@ -52,14 +53,32 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Icon(Icons.arrow_back_ios_new, size: 16),
-          ),
-          const CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Icon(Icons.favorite_border),
-          ),
+          ButtonBack(),
+          Container(
+            width: 35,
+            height: 35,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 5,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Center(
+              child: GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Icon(
+                  size: 20,
+                  true ? Icons.favorite : Icons.favorite_border,
+                  color: true ? Colors.red : Colors.grey,
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

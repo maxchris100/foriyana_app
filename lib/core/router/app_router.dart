@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foriyana_app/presentation/views/home/home_page.dart';
+import 'package:foriyana_app/presentation/views/home/product_page.dart';
+import 'package:foriyana_app/presentation/views/home/search_detail_page.dart';
 import 'package:foriyana_app/presentation/views/login/create_new_password_page.dart';
 import 'package:foriyana_app/presentation/views/login/forgot_password_page.dart';
 import 'package:foriyana_app/presentation/views/login/login_page.dart';
@@ -7,6 +9,9 @@ import 'package:foriyana_app/presentation/views/login/otp_page.dart';
 import 'package:foriyana_app/presentation/views/login/signup_page.dart';
 import 'package:foriyana_app/presentation/views/notification/notification_page.dart';
 import 'package:foriyana_app/presentation/views/order/cart_page.dart';
+import 'package:foriyana_app/presentation/views/order/checkout1_page.dart';
+import 'package:foriyana_app/presentation/views/order/checkout2_page.dart';
+import 'package:foriyana_app/presentation/views/order/checkout_complete.dart';
 import 'package:foriyana_app/presentation/views/order/order_detail_page.dart';
 import 'package:foriyana_app/presentation/views/order/order_page.dart';
 import 'package:foriyana_app/presentation/views/order/product_detail_page.dart';
@@ -34,13 +39,19 @@ class AppRouter {
   static const String createNewPassword = '/create-new-password';
 
   //products
+
+  static const String productList = '/product-list';
   static const String productDetail = '/product-detail';
   //other
+  static const String searchDetail = '/search-detail';
   static const String rateApp = '/rate-app';
   static const String deliveryAddress = '/delivery-address';
   static const String paymentMethod = '/payment-method';
   static const String userProfile = '/user-profile';
   static const String orderCheckout = '/order-checkout';
+  static const String orderCheckout2 = '/order-checkout2';
+  static const String orderCheckoutComplete = '/order-checkout-complete';
+
   static const String trackOrder = '/track-order';
   static const String order = '/order';
   static const String orderDetail = '/order-detail';
@@ -63,9 +74,14 @@ class AppRouter {
       "/welcome": (context) => WelcomePage(),
       "/startup": (context) => StartupPage(),
       "/home": (context) => HomePage(),
+      searchDetail: (context) => SearchDetailPage(),
       deliveryAddress: (context) => DeliveryAddressPage(),
       rateApp: (context) => RateAppPage(),
       paymentMethod: (context) => CartPage(),
+      orderCheckout: (context) => Checkout1Page(),
+      orderCheckout2: (context) => Checkout2Page(),
+      orderCheckoutComplete: (context) => CheckoutCompletePage(),
+      productList: (context) => ProductPage(),
       "/product-detail": (context) => ProductDetailPage(),
       "/track-order": (context) => TrackOrderPage(),
       "/cart": (context) => CartPage(),

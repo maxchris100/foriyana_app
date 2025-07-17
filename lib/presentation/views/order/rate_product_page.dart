@@ -40,6 +40,7 @@ class _RateProductPageState extends State<RateProductPage> {
     return Scaffold(
       appBar: AppBar(
         leading: ButtonBack(),
+        leadingWidth: 40,
         backgroundColor: Colors.white,
         elevation: 0,
         title: const Text(

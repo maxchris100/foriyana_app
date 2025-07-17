@@ -294,6 +294,7 @@ class _OtpPageState extends State<OtpPage> with WidgetsBindingObserver {
       child: Scaffold(
         appBar: AppBar(
           leading: ButtonBack(),
+          leadingWidth: 40,
           backgroundColor: Colors.white,
           elevation: 0,
         ),

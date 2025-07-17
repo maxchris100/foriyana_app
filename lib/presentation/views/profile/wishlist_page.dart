@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:foriyana_app/core/router/app_router.dart';
 import 'package:foriyana_app/presentation/widgets/button_back.dart';
 
 class WishlistPage extends StatefulWidget {
@@ -20,8 +22,13 @@ class _WishlistPageState extends State<WishlistPage> {
         centerTitle: true,
         elevation: 0,
         leading: ButtonBack(),
-        actions: const [
-          Icon(Icons.notifications_none, color: Colors.black),
+        leadingWidth: 40,
+        actions: [
+          GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, AppRouter.notification);
+              },
+              child: SvgPicture.asset("assets/icons/notification.svg")),
           SizedBox(width: 16),
         ],
       ),
@@ -38,7 +45,7 @@ class _WishlistPageState extends State<WishlistPage> {
                     isAllItemsSelected = true;
                   });
                 }),
-                const SizedBox(width: 10),
+                // const SizedBox(width: 10),
                 _buildFilterButton("Boards", !isAllItemsSelected, () {
                   setState(() {
                     isAllItemsSelected = false;
@@ -106,7 +113,7 @@ class _WishlistPageState extends State<WishlistPage> {
           padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
             color: isSelected ? Colors.black : Colors.white,
-            borderRadius: BorderRadius.circular(30),
+            // borderRadius: BorderRadius.circular(30),
             border: Border.all(color: Colors.black),
           ),
           alignment: Alignment.center,

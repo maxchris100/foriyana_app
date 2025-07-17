@@ -44,6 +44,7 @@ class _NotificationPageState extends State<NotificationPage> {
         appBar: AppBar(
           title: Text("Notification"),
           leading: ButtonBack(),
+          leadingWidth: 40,
         ),
         body: ListView(children: []),
       ),

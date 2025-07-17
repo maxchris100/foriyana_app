@@ -20,6 +20,7 @@ class _WishlistPageState extends State<WishlistPage> {
         centerTitle: true,
         elevation: 0,
         leading: ButtonBack(),
+        leadingWidth: 40,
         actions: const [
           Icon(Icons.notifications_none, color: Colors.black),
           SizedBox(width: 16),

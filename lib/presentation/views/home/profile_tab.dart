@@ -46,12 +46,16 @@ class _ProfileTabState extends State<ProfileTab> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CircleAvatar(
-                          radius: 30,
-                          child: SvgPicture.asset(
-                            "assets/icons/default-avatar.svg",
-                            height: 40,
-                            width: 40,
-                          )),
+                        radius: 30,
+                        backgroundImage:
+                            AssetImage("assets/images/banner1.png"),
+
+                        //  SvgPicture.asset(
+                        //   "assets/icons/default-avatar.svg",
+                        //   height: 40,
+                        //   width: 40,
+                        // )
+                      ),
                       const SizedBox(width: 16),
                       Expanded(
                         child: Column(

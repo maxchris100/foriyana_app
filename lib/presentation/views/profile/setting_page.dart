@@ -11,15 +11,17 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Setting',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              )),
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          elevation: 0,
-          leading: ButtonBack()),
+        title: const Text('Setting',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            )),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        elevation: 0,
+        leading: ButtonBack(),
+        leadingWidth: 40,
+      ),
       drawer: const AppDrawer(selectedMenu: "Setting"),
       backgroundColor: Colors.white,
       body: ListView(

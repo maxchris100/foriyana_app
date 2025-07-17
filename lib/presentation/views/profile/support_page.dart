@@ -29,6 +29,7 @@ class _SupportPageState extends State<SupportPage> {
     return Scaffold(
       appBar: AppBar(
         leading: ButtonBack(),
+        leadingWidth: 40,
         title: Row(
           children: [
             const CircleAvatar(

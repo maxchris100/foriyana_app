@@ -19,6 +19,7 @@ class TrackOrderPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: ButtonBack(),
+        leadingWidth: 40,
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,

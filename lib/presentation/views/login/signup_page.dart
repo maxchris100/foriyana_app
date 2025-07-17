@@ -224,13 +224,22 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _buildSocialIcon(String assetPath) {
     return GestureDetector(
       onTap: () {},
-      child: CircleAvatar(
-        backgroundColor: Colors.white,
-        radius: 24,
-        child: SvgPicture.asset(
-          assetPath,
-          height: 24,
-          width: 24,
+      child: Container(
+        width: 48,
+        height: 48,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: Colors.grey.shade300, // Border gray
+            width: 1.5,
+          ),
+        ),
+        child: Center(
+          child: SvgPicture.asset(
+            assetPath,
+            height: 24,
+            width: 24,
+          ),
         ),
       ),
     );

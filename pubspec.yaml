@@ -45,8 +45,8 @@ dependencies:
   app_settings:
 
   flutter_local_notifications:
-  flutter_native_splash:
-    # background_image: "assets/splash_screen.webp"
+  flutter_native_splash: 
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -54,6 +54,11 @@ dev_dependencies:
   intl_utils: ^2.6.0 # or any newer version 
   
   
+flutter_native_splash: 
+  background_image: "assets/splash_screen.png"
+  android: true
+  ios: true
+  fullscreen: true 
 flutter:
   uses-material-design: true
   generate: true # Add this line

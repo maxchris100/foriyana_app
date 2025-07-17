@@ -20,63 +20,87 @@ class CartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 8),
-        ],
-      ),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.network(
-              imageUrl,
-              width: 70,
-              height: 70,
-              fit: BoxFit.cover,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12.withOpacity(0.05),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
             ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          ],
+        ),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  bottomLeft: Radius.circular(12)),
+              child: Image.asset(
+                imageUrl,
+                width: 90,
+                height: 90,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title,
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 4),
+                    Text('\$${price.toStringAsFixed(2)}',
+                        style: const TextStyle(fontWeight: FontWeight.w600)),
+                    Text('Size: $size  |  Color: $color',
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.grey)),
+                  ],
+                ),
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(title,
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 4),
-                Text('\$${price.toStringAsFixed(2)}',
-                    style: const TextStyle(fontWeight: FontWeight.w600)),
-                Text('Size: $size  |  Color: $color',
-                    style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                Icon(
+                  isSelected ? Icons.check_box : Icons.check_box_outline_blank,
+                  color: isSelected ? Color(0xff508A7B) : Colors.grey,
+                ),
+                const SizedBox(height: 8),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(color: Colors.grey),
+                  ),
+                  padding: EdgeInsets.all(3),
+                  child: Row(
+                    children: [
+                      _qtyButton(Icons.remove),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          "1",
+                          style:
+                              TextStyle(decoration: TextDecoration.underline),
+                        ),
+                      ),
+                      _qtyButton(Icons.add),
+                    ],
+                  ),
+                )
               ],
             ),
-          ),
-          Column(
-            children: [
-              Icon(
-                isSelected ? Icons.check_box : Icons.check_box_outline_blank,
-                color: isSelected ? Colors.green : Colors.grey,
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  _qtyButton(Icons.remove),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: Text("1"),
-                  ),
-                  _qtyButton(Icons.add),
-                ],
-              )
-            ],
-          )
-        ],
+            const SizedBox(width: 8),
+          ],
+        ),
       ),
     );
   }
@@ -84,9 +108,9 @@ class CartItem extends StatelessWidget {
   Widget _qtyButton(IconData icon) {
     return Container(
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: Colors.grey),
-      ),
+          // shape: BoxShape.circle,
+          // border: Border.all(color: Colors.grey),
+          ),
       child: Icon(icon, size: 18),
     );
   }

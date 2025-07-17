@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foriyana_app/core/router/app_router.dart';
 
 class TopCollectionSection extends StatelessWidget {
   const TopCollectionSection({super.key});
@@ -8,7 +9,7 @@ class TopCollectionSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildHeader("Top Collection"),
+        _buildHeader(context, "Top Collection"),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Container(
@@ -42,7 +43,7 @@ class TopCollectionSection extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(String title) {
+  Widget _buildHeader(BuildContext context, String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
@@ -51,7 +52,13 @@ class TopCollectionSection extends StatelessWidget {
           Text(title,
               style:
                   const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-          const Text("Show all", style: TextStyle(color: Colors.grey)),
+          GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, AppRouter.productList,
+                    arguments: {});
+              },
+              child:
+                  const Text("Show all", style: TextStyle(color: Colors.grey))),
         ],
       ),
     );

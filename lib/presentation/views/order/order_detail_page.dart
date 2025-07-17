@@ -28,6 +28,7 @@ class OrderDetailPage extends StatelessWidget {
         title: const Text('Order #1514'),
         centerTitle: true,
         leading: ButtonBack(),
+        leadingWidth: 40,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -59,6 +60,8 @@ class OrderDetailPage extends StatelessWidget {
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Colors.white,
                                   ),
                                 ),
                                 SizedBox(height: 4),
@@ -92,6 +95,8 @@ class OrderDetailPage extends StatelessWidget {
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Colors.white,
                                 ),
                               ),
                               const SizedBox(height: 4),
@@ -113,8 +118,15 @@ class OrderDetailPage extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(12),
+                color: const Color.fromARGB(255, 253, 253, 253),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 1,
+                    offset: Offset(0, 2),
+                  ),
+                ],
               ),
               child: Column(
                 children: const [
@@ -135,8 +147,15 @@ class OrderDetailPage extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(12),
+                color: const Color.fromARGB(255, 253, 253, 253),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 1,
+                    offset: Offset(0, 2),
+                  ),
+                ],
               ),
               child: Column(
                 children: [
@@ -180,41 +199,60 @@ class OrderDetailPage extends StatelessWidget {
             const SizedBox(height: 24),
 
             // Buttons
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24)),
-                    ),
-                    child: const Text(
-                      "Return home",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, AppRouter.rateProduct);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24)),
-                        backgroundColor: Colors.black87,
+            item?["status"] == "Pending"
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(24)),
+                              backgroundColor: Colors.black87,
+                            ),
+                            child: const Text(
+                              "Continue Shopping",
+                              style: TextStyle(color: Colors.white),
+                            )),
                       ),
-                      child: const Text(
-                        "Rate",
-                        style: TextStyle(color: Colors.white),
-                      )),
-                ),
-              ],
-            )
+                    ],
+                  )
+                : Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24)),
+                          ),
+                          child: const Text(
+                            "Return home",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, AppRouter.rateProduct);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(24)),
+                              backgroundColor: Colors.black87,
+                            ),
+                            child: const Text(
+                              "Rate",
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ),
+                    ],
+                  )
           ],
         ),
       ),

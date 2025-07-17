@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foriyana_app/core/router/app_router.dart';
 import 'package:foriyana_app/presentation/widgets/button_back.dart';
 import 'package:foriyana_app/presentation/widgets/cart_item.dart';
 
@@ -9,7 +10,7 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartItems = [
       CartItem(
-        imageUrl: 'https://via.placeholder.com/150',
+        imageUrl: 'assets/images/startup1.webp',
         title: 'Sportwear Set',
         price: 80.00,
         size: 'L',
@@ -17,7 +18,7 @@ class CartPage extends StatelessWidget {
         isSelected: true,
       ),
       CartItem(
-        imageUrl: 'https://via.placeholder.com/150',
+        imageUrl: 'assets/images/startup1.webp',
         title: 'Turtleneck Sweater',
         price: 39.99,
         size: 'M',
@@ -25,7 +26,7 @@ class CartPage extends StatelessWidget {
         isSelected: false,
       ),
       CartItem(
-        imageUrl: 'https://via.placeholder.com/150',
+        imageUrl: 'assets/images/startup1.webp',
         title: 'Cotton T-shirt',
         price: 30.00,
         size: 'L',
@@ -35,12 +36,12 @@ class CartPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xfff9f9f9),
       appBar: AppBar(
         title: const Text("Your Cart",
             style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         leading: ButtonBack(),
+        leadingWidth: 40,
         elevation: 0,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
@@ -61,9 +62,17 @@ class CartPage extends StatelessWidget {
                     backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12))),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRouter.orderCheckout,
+                  );
+                },
                 child: const Text("Proceed to checkout",
-                    style: TextStyle(fontSize: 16)),
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold)),
               ),
             )
           ],
@@ -74,10 +83,24 @@ class CartPage extends StatelessWidget {
 
   Widget _buildSummary() {
     return Column(
-      children: const [
-        Divider(),
+      children: [
+        const Divider(
+          height: 16,
+          thickness: 0.5,
+          color: Color(0xFFE0E0E0),
+        ),
         _SummaryRow(label: "Product price", value: "\$110"),
+        const Divider(
+          height: 16,
+          thickness: 0.5,
+          color: Color(0xFFE0E0E0),
+        ),
         _SummaryRow(label: "Shipping", value: "Freeship"),
+        const Divider(
+          height: 16,
+          thickness: 0.5,
+          color: Color(0xFFE0E0E0),
+        ),
         _SummaryRow(label: "Subtotal", value: "\$110", bold: true),
       ],
     );

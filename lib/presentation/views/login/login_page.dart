@@ -68,27 +68,27 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: isDev
-            ? GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushReplacementNamed('/home');
-                },
-                child: Icon(Icons.home))
-            : Text(""),
-        actions: [
-          isDev
-              ? GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed('/otp');
-                  },
-                  child: Text("OTP"))
-              : Text(""),
-          SizedBox(
-            width: 10,
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   title: isDev
+      //       ? GestureDetector(
+      //           onTap: () {
+      //             Navigator.of(context).pushReplacementNamed('/home');
+      //           },
+      //           child: Icon(Icons.home))
+      //       : Text(""),
+      //   actions: [
+      //     isDev
+      //         ? GestureDetector(
+      //             onTap: () {
+      //               Navigator.of(context).pushNamed('/otp');
+      //             },
+      //             child: Text("OTP"))
+      //         : Text(""),
+      //     SizedBox(
+      //       width: 10,
+      //     ),
+      //   ],
+      // ),
       body: Form(
         key: _formKey,
         child: SafeArea(
@@ -248,13 +248,22 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildSocialIcon(String assetPath) {
     return GestureDetector(
       onTap: () {},
-      child: CircleAvatar(
-        backgroundColor: Colors.white,
-        radius: 24,
-        child: SvgPicture.asset(
-          assetPath,
-          height: 24,
-          width: 24,
+      child: Container(
+        width: 48,
+        height: 48,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: Colors.grey.shade300, // Border gray
+            width: 1.5,
+          ),
+        ),
+        child: Center(
+          child: SvgPicture.asset(
+            assetPath,
+            height: 24,
+            width: 24,
+          ),
         ),
       ),
     );

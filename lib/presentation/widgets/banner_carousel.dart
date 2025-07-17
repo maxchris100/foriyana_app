@@ -12,17 +12,17 @@ class _BannerCarouselSectionState extends State<BannerCarouselSection> {
   int _currentIndex = 0;
   final List<Map<String, String>> banners = [
     {
-      'image': 'assets/images/autumn_banner1.png',
+      'image': 'assets/images/startup1.webp',
       'title': 'Autumn Collection',
       'subtitle': '20% off for new arrivals',
     },
     {
-      'image': 'assets/images/autumn_banner2.png',
+      'image': 'assets/images/startup1.webp',
       'title': 'Winter Deals',
       'subtitle': 'Stay warm in style',
     },
     {
-      'image': 'assets/images/autumn_banner3.png',
+      'image': 'assets/images/startup1.webp',
       'title': 'Spring Look',
       'subtitle': 'Fresh styles for sunny days',
     },

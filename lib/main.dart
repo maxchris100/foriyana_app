@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
         builder: (context, locale) {
           return OverlaySupport.global(
             child: MaterialApp(
-              title: 'Foriyana App',
+              title: 'M-Mart',
               locale: locale,
               localeResolutionCallback: (locale, supportedLocales) {
                 // Handle locale resolution here
@@ -97,7 +97,6 @@ class MyApp extends StatelessWidget {
               routes: AppRouter.onGenerateRoute(),
               onGenerateRoute: (settings) {
                 final args = settings.arguments as Map<String, dynamic>?;
-                // if (settings.name == '/policy-insurance') {}
               },
               theme: ThemeData(
                 useMaterial3: true,
@@ -167,7 +166,7 @@ class AuthWrapper extends StatelessWidget {
         } else if (state is AuthInitial) {
           return LoginPage();
         } else if (state is AuthInitialStartup) {
-          return HomePage();
+          return WelcomePage();
         }
         return Container();
       },
