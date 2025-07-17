@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/auth_cubit.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/profile_cubit.dart';
 import 'package:foriyana_app/presentation/widgets/feature_product.dart';
@@ -16,6 +17,7 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   DateTime selectedDate = DateTime.now();
   DateTime? selectedDate2;
+  int selectedCategoryIndex = 0;
 
   @override
   void initState() {
@@ -30,6 +32,13 @@ class _HomeTabState extends State<HomeTab> {
     try {} catch (ex) {}
   }
 
+  final List<Map<String, String>> categories = [
+    {'label': 'Women', 'icon': 'assets/icons/woman.svg'},
+    {'label': 'Men', 'icon': 'assets/icons/man.svg'},
+    {'label': 'Accessories', 'icon': 'assets/icons/accessories.svg'},
+    {'label': 'Beauty', 'icon': 'assets/icons/beauty.svg'},
+  ];
+
   @override
   Widget build(BuildContext context) {
     AuthCubit authCubit = context.watch<AuthCubit>();
@@ -42,12 +51,113 @@ class _HomeTabState extends State<HomeTab> {
           padding: const EdgeInsets.all(16.0),
           child: ListView(
             children: [
+              SizedBox(
+                height: 90,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(categories.length, (index) {
+                  final category = categories[index];
+                  return Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedCategoryIndex = index;
+                        });
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: selectedCategoryIndex == index
+                                  ? Colors.black
+                                  : Colors.grey.shade200,
+                            ),
+                            child: SvgPicture.asset(
+                              category['icon']!,
+                              color: selectedCategoryIndex == index
+                                  ? Colors.white
+                                  : Colors.black,
+                              width: 24,
+                              height: 24,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            category['label']!,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: selectedCategoryIndex == index
+                                  ? Colors.black
+                                  : Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+              ),
+              BannerCarouselSection(),
               FeatureProductSection(),
               RecommendedProductSection(),
               TopCollectionSection(),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class CategoryTab extends StatelessWidget {
+  final String label;
+  final String iconAsset;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const CategoryTab({
+    super.key,
+    required this.label,
+    required this.iconAsset,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: isSelected ? Colors.black : Colors.transparent,
+              shape: BoxShape.circle,
+            ),
+            child: SvgPicture.asset(
+              iconAsset,
+              width: 24,
+              height: 24,
+              colorFilter: ColorFilter.mode(
+                isSelected ? Colors.white : Colors.grey,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: isSelected ? Colors.black : Colors.grey,
+            ),
+          )
+        ],
       ),
     );
   }

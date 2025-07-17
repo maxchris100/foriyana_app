@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:foriyana_app/core/router/app_router.dart';
+import 'package:foriyana_app/presentation/blocs/cubit/home_cubit.dart';
 
 class AppDrawer extends StatelessWidget {
   final String selectedMenu;
@@ -7,6 +11,8 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HomeCubit homeCubit = context.watch<HomeCubit>();
+
     return Drawer(
       backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
@@ -45,10 +51,27 @@ class AppDrawer extends StatelessWidget {
             const Divider(),
 
             // Menu Items
-            _buildMenuItem(context, Icons.home_outlined, "Homepage"),
-            _buildMenuItem(context, Icons.search, "Discover"),
-            _buildMenuItem(context, Icons.shopping_bag_outlined, "My Order"),
-            _buildMenuItem(context, Icons.person_outline, "My profile"),
+            _buildMenuItem(context, "assets/icons/home_home.svg", "Homepage",
+                onTap: () {
+              homeCubit.changeTab(0);
+              Navigator.pop(context);
+            }),
+            _buildMenuItem(context, "assets/icons/home_search.svg", "Discover",
+                onTap: () {
+              homeCubit.changeTab(1);
+              Navigator.pop(context);
+            }),
+            _buildMenuItem(context, "assets/icons/home_cart.svg", "My Order",
+                onTap: () {
+              homeCubit.changeTab(2);
+              Navigator.pop(context);
+            }),
+            _buildMenuItem(
+                context, "assets/icons/home_profile.svg", "My Profile",
+                onTap: () {
+              homeCubit.changeTab(3);
+              Navigator.pop(context);
+            }),
 
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -56,9 +79,18 @@ class AppDrawer extends StatelessWidget {
                   style: TextStyle(fontSize: 12, color: Colors.grey)),
             ),
 
-            _buildMenuItem(context, Icons.settings_outlined, "Setting"),
-            _buildMenuItem(context, Icons.mail_outline, "Support"),
-            _buildMenuItem(context, Icons.info_outline, "About us"),
+            _buildMenuItem(context, "assets/icons/setting.svg", "Setting",
+                onTap: () {
+              Navigator.pushNamed(context, AppRouter.settings);
+            }),
+            _buildMenuItem(context, "assets/icons/support.svg", "Support",
+                onTap: () {
+              Navigator.pushNamed(context, AppRouter.support);
+            }),
+            _buildMenuItem(context, "assets/icons/info.svg", "About us",
+                onTap: () {
+              Navigator.pushNamed(context, AppRouter.about);
+            }),
 
             const Spacer(),
           ],
@@ -67,24 +99,22 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(BuildContext context, IconData icon, String label) {
+  Widget _buildMenuItem(BuildContext context, String icon, String label,
+      {Function()? onTap}) {
     final isSelected = label == selectedMenu;
 
     return ListTile(
-      leading: Icon(icon, color: isSelected ? Colors.black : Colors.grey),
-      title: Text(
-        label,
-        style: TextStyle(
-          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-          color: isSelected ? Colors.black : Colors.grey,
+        leading: SvgPicture.asset(icon,
+            color: isSelected ? Colors.black : Colors.grey),
+        title: Text(
+          label,
+          style: TextStyle(
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            color: isSelected ? Colors.black : Colors.grey,
+          ),
         ),
-      ),
-      tileColor: isSelected ? Colors.grey.shade200 : Colors.transparent,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      onTap: () {
-        // Ganti halaman jika ingin
-        Navigator.pop(context);
-      },
-    );
+        tileColor: isSelected ? Colors.grey.shade200 : Colors.transparent,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        onTap: onTap);
   }
 }

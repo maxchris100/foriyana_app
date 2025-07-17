@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool isDev = false;
   bool _isLoading = false;
+  bool obscureText = true;
 
   String callbackUrl = 'myapp://customer-portal.app'; // Callback URL default
   late String selectedLocal;
@@ -46,7 +47,6 @@ class _LoginPageState extends State<LoginPage> {
       setState(() {
         _isLoading = true;
       });
-
       await AuthCubit().login(context,
           _emailController.text.trim().toLowerCase(), _passController.text);
 
@@ -112,9 +112,56 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                _buildTextField("Email address", controller: _emailController),
-                _buildTextField("Password",
-                    isPassword: true, controller: _passController),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      hintText: "Email Address",
+                      hintStyle: TextStyle(),
+                      border: const UnderlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged: (value) {
+                      _formKey.currentState!.validate();
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Email is required';
+                      }
+                      final emailRegex =
+                          RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                      if (!emailRegex.hasMatch(value)) {
+                        return 'Email Format is not valid';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: TextFormField(
+                    controller: _passController,
+                    obscureText: obscureText,
+                    decoration: InputDecoration(
+                      hintText: "Password",
+                      hintStyle: TextStyle(),
+                      border: const UnderlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      _formKey.currentState!.validate();
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Password is required';
+                      }
+                      if (value.length < 6) {
+                        return 'Password length minimum 6 characters';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
                 GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, AppRouter.forgotPassword);
@@ -124,22 +171,27 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text("Forgot Password?")),
                 ),
                 const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: () {
-                    _handleSubmit();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF2B1B17),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 18),
-                  ),
-                  child: Text(
-                    "LOG IN",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                Center(
+                  child: SizedBox(
+                    width: 150,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _handleSubmit();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF2B1B17),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 18),
+                      ),
+                      child: Text(
+                        "LOG IN",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -147,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                 Center(
                   child: Text(
                     "or log in with",
-                    style: TextStyle(fontSize: 14),
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -173,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(color: Colors.black),
                         children: [
                           TextSpan(
-                            text: "Create Account",
+                            text: "Sign Up",
                             style: TextStyle(
                               color: Colors.black,
                               decoration: TextDecoration.underline,
@@ -193,29 +245,9 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildTextField(String hint,
-      {bool isPassword = false, required TextEditingController controller}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: TextField(
-        controller: controller,
-        obscureText: isPassword,
-        decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: TextStyle(),
-          border: const UnderlineInputBorder(),
-        ),
-      ),
-    );
-  }
-
   Widget _buildSocialIcon(String assetPath) {
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).pushReplacementNamed(
-          AppRouter.home,
-        );
-      },
+      onTap: () {},
       child: CircleAvatar(
         backgroundColor: Colors.white,
         radius: 24,

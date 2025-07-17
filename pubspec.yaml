@@ -38,13 +38,15 @@ dependencies:
   fl_chart: ^0.70.2 
   flutter_dotenv:
   overlay_support:  
+  carousel_slider:
 
   package_info_plus:
   device_info_plus:
   app_settings:
 
   flutter_local_notifications:
-  
+  flutter_native_splash:
+    # background_image: "assets/splash_screen.webp"
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -12,6 +12,7 @@ import 'package:foriyana_app/presentation/views/order/order_page.dart';
 import 'package:foriyana_app/presentation/views/order/product_detail_page.dart';
 import 'package:foriyana_app/presentation/views/order/rate_product_page.dart';
 import 'package:foriyana_app/presentation/views/order/track_order_page.dart';
+import 'package:foriyana_app/presentation/views/profile/setting_page.dart';
 import 'package:foriyana_app/presentation/views/profile/wishlist_page.dart';
 import 'package:foriyana_app/presentation/views/startup/startup_page.dart';
 import 'package:foriyana_app/presentation/views/startup/welcome_page.dart';
@@ -26,6 +27,10 @@ class AppRouter {
   //authentication
   static const String signIn = '/sign-in';
   static const String signUp = '/sign-up';
+  static const String otp = '/otp';
+  static const String forgotPassword = '/forgot-password';
+  static const String createNewPassword = '/create-new-password';
+
   //products
   static const String productDetail = '/product-detail';
   //other
@@ -37,10 +42,9 @@ class AppRouter {
   static const String cart = '/cart';
   static const String rateProduct = '/rate-product';
   static const String settings = '/settings';
+  static const String support = '/support';
   static const String notification = '/notification';
   static const String about = '/about';
-  static const String forgotPassword = '/forgot-password';
-  static const String createNewPassword = '/create-new-password';
   static const String filter = '/filter';
 
   static Map<String, Widget Function(BuildContext)> onGenerateRoute() {
@@ -60,7 +64,8 @@ class AppRouter {
       "/wishlist": (context) => WishlistPage(),
       "/order-detail": (context) => OrderDetailPage(),
       "/rate-product": (context) => RateProductPage(),
-      "/support": (context) => SupportPage(),
+      support: (context) => SupportPage(),
+      settings: (context) => SettingPage(),
       "/notification": (context) => NotificationPage(),
     };
   }

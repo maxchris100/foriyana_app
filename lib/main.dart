@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:foriyana_app/core/router/app_router.dart';
 import 'package:foriyana_app/core/util/appdevice.dart';
 import 'package:foriyana_app/core/util/appversion.dart';
@@ -21,13 +22,14 @@ import 'package:foriyana_app/presentation/views/login/login_page.dart';
 import 'package:foriyana_app/presentation/views/startup/welcome_page.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Ensures Flutter is initialized
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding
+      .ensureInitialized(); // Ensures Flutter is initialized
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   // await di.init();
   // await PushNotificationService.initialize();
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   ); // To turn off landscape mode
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await AppVersion.getPackageInfo();
   await AppDevice.getDeviceInfo();
   HttpOverrides.global = MyHttpOverrides();
@@ -37,6 +39,7 @@ Future<void> main() async {
   Constant.initializeUserLocalDataSource();
   await setLanguage();
   runApp(MyApp());
+  FlutterNativeSplash.remove();
 }
 
 Future setLanguage() async {
@@ -157,7 +160,7 @@ class AuthWrapper extends StatelessWidget {
         } else if (state is AuthInitial) {
           return LoginPage();
         } else if (state is AuthInitialStartup) {
-          return WelcomePage();
+          return HomePage();
         }
         return Container();
       },

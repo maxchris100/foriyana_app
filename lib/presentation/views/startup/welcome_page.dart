@@ -19,7 +19,7 @@ class WelcomePage extends StatelessWidget {
 
           // Overlay darkened layer (semi-transparent)
           Container(
-            color: Colors.black.withOpacity(0.4),
+            color: Colors.black.withOpacity(0.6),
           ),
 
           // Content
@@ -32,19 +32,25 @@ class WelcomePage extends StatelessWidget {
                 const Spacer(),
                 // Welcome text
                 const Text(
-                  'Welcome to M=Mart',
+                  'Welcome to M-Mart',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 24,
+                    fontSize: 28,
                     fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.white,
+                    decorationThickness: 2,
                   ),
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  'The home for fashion',
+                  'The home for a fashion',
                   style: TextStyle(
-                    color: Colors.white70,
+                    color: Colors.white,
                     fontSize: 16,
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.white,
+                    decorationThickness: 2,
                   ),
                 ),
 
@@ -56,17 +62,20 @@ class WelcomePage extends StatelessWidget {
                     Navigator.pushNamed(context, AppRouter.startup);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.grey,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
+                    side: BorderSide(color: Colors.white),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 32, vertical: 12),
                   ),
                   child: const Text(
                     'Get Started',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(height: 40),

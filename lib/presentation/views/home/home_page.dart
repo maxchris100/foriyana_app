@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:foriyana_app/core/router/app_router.dart';
+import 'package:foriyana_app/presentation/blocs/cubit/home_cubit.dart';
 import 'package:foriyana_app/presentation/views/home/cart_tab.dart';
 import 'package:foriyana_app/presentation/views/home/home_tab.dart';
 import 'package:foriyana_app/presentation/views/home/profile_tab.dart';
@@ -14,8 +17,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-
   final List<Widget> _pages = [
     const HomeTab(),
     const SearchTab(),
@@ -24,64 +25,99 @@ class _HomePageState extends State<HomePage> {
   ];
 
   void _onItemTapped(int index) {
-    setState(() => _selectedIndex = index);
+    homeCubit.changeTab(index);
   }
+
+  HomeCubit homeCubit = HomeCubit();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title:
-            const Text("M-Mart", style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
-        leading: Builder(builder: (context) {
-          return GestureDetector(
-              onTap: () {
-                Scaffold.of(context).openDrawer();
-              },
-              child: const Icon(Icons.menu));
-        }),
-        actions: [
-          Padding(
-              padding: EdgeInsets.only(right: 16),
-              child: GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, AppRouter.notification);
-                  },
-                  child: Icon(Icons.notifications_none)))
-        ],
-      ),
-      body: _pages[_selectedIndex],
-      drawer: const AppDrawer(selectedMenu: "Homepage"),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.grey.shade400,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        backgroundColor: Colors.white,
-        elevation: 12,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: "Search",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag_outlined),
-            label: "Cart",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: "Profile",
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<HomeCubit>(
+            create: (context) => homeCubit,
           ),
         ],
-      ),
-    );
+        child: BlocBuilder<HomeCubit, HomeState>(builder: (context2, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text("M-Mart",
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+              centerTitle: true,
+              leading: Builder(
+                builder: (BuildContext context) {
+                  return IconButton(
+                    icon: SvgPicture.asset("assets/icons/menu.svg"),
+                    onPressed: () {
+                      Scaffold.of(context)
+                          .openDrawer(); // context di sini sudah benar
+                    },
+                  );
+                },
+              ),
+              actions: [
+                Padding(
+                    padding: EdgeInsets.only(right: 16),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, AppRouter.notification);
+                      },
+                      child: SvgPicture.asset("assets/icons/notification.svg"),
+                    ))
+              ],
+            ),
+            body: _pages[homeCubit.state.selectedIndex],
+            drawer: const AppDrawer(selectedMenu: "Homepage"),
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: homeCubit.state.selectedIndex,
+              onTap: _onItemTapped,
+              type: BottomNavigationBarType.fixed,
+              selectedItemColor: Colors.black,
+              unselectedItemColor: Colors.grey.shade400,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              backgroundColor: Colors.white,
+              elevation: 12,
+              items: [
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    "assets/icons/home_home.svg",
+                    color: homeCubit.state.selectedIndex == 0
+                        ? Colors.black
+                        : null,
+                  ),
+                  label: "Home",
+                ),
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    "assets/icons/home_search.svg",
+                    color: homeCubit.state.selectedIndex == 1
+                        ? Colors.black
+                        : null,
+                  ),
+                  label: "Search",
+                ),
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    "assets/icons/home_cart.svg",
+                    color: homeCubit.state.selectedIndex == 2
+                        ? Colors.black
+                        : null,
+                  ),
+                  label: "Cart",
+                ),
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    "assets/icons/home_profile.svg",
+                    color: homeCubit.state.selectedIndex == 3
+                        ? Colors.black
+                        : null,
+                  ),
+                  label: "Profile",
+                ),
+              ],
+            ),
+          );
+        }));
   }
 }
