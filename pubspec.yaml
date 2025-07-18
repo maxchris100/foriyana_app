@@ -47,6 +47,9 @@ dependencies:
   flutter_local_notifications:
   flutter_native_splash: 
   
+  firebase_core:  
+  firebase_auth: 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

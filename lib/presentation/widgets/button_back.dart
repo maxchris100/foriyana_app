@@ -10,8 +10,8 @@ class ButtonBack extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: 12),
       child: Container(
-        width: 40,
-        height: 40,
+        width: 35,
+        height: 35,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.white,
