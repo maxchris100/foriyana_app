@@ -24,6 +24,9 @@ class DioClient {
       HttpHeaders.contentTypeHeader: "application/json",
     };
     _dio.interceptors.add(_defaultInterceptor());
+    if (Constant.alice != null) {
+      _dio.interceptors.add(Constant.alice!.getDioInterceptor());
+    }
     return _dio;
   }
 

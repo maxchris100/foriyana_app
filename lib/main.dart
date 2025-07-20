@@ -5,6 +5,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:foriyana_app/core/router/app_router.dart';
 import 'package:foriyana_app/core/util/appdevice.dart';
 import 'package:foriyana_app/core/util/appversion.dart';
+import 'package:foriyana_app/core/util/firebase.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,14 +27,14 @@ Future<void> main() async {
       .ensureInitialized(); // Ensures Flutter is initialized
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   // await di.init();
-  // await PushNotificationService.initialize();
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   ); // To turn off landscape mode
   await AppVersion.getPackageInfo();
   await AppDevice.getDeviceInfo();
   HttpOverrides.global = MyHttpOverrides();
-  // await CFirebase.init();
+  await CFirebase.init();
+  // await PushNotificationService.initialize();
 
   await dotenv.load(fileName: ".env");
   Constant.initializeUserLocalDataSource();

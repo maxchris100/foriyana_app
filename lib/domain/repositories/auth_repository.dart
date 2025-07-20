@@ -66,4 +66,51 @@ class AuthRepository {
       queryParameters: {},
     );
   }
+
+  static Future<Response> forgotPassword({
+    required String email,
+    CancelToken? cancelToken,
+  }) async {
+    return await DioClient.instance.post(
+      "/v1/auth/forgot-password",
+      data: {
+        "email": email,
+      },
+      cancelToken: cancelToken,
+    );
+  }
+
+  /// POST /v1/auth/reset-password
+  static Future<Response> resetPassword({
+    required String email,
+    required String otp,
+    required String password,
+    CancelToken? cancelToken,
+  }) async {
+    return await DioClient.instance.post(
+      "/v1/auth/reset-password",
+      data: {
+        "email": email,
+        "otp": otp,
+        "password": password,
+      },
+      cancelToken: cancelToken,
+    );
+  }
+
+  /// POST /v1/auth/verify-email
+  static Future<Response> verifyEmail({
+    required String email,
+    required String otp,
+    CancelToken? cancelToken,
+  }) async {
+    return await DioClient.instance.post(
+      "/v1/auth/verify-email",
+      data: {
+        "email": email,
+        "otp": otp,
+      },
+      cancelToken: cancelToken,
+    );
+  }
 }

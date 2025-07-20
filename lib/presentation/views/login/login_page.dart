@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foriyana_app/core/router/app_router.dart';
+import 'package:foriyana_app/core/util/firebase.dart';
 import 'package:foriyana_app/data/data_sources/user_local_data_source.dart';
 import 'package:foriyana_app/presentation/blocs/cubit/auth_cubit.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -25,20 +27,21 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passController = TextEditingController();
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _passFocus = FocusNode();
-
+  bool isAppleAvailable = false;
   @override
   void initState() {
     selectedLocal = UserLocalDataSource.language;
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      isAppleAvailable = await SignInWithApple.isAvailable();
       if (dotenv.env["ENV"] != "production") {
         isDev = true;
         _emailController.text = "johndoe@example.com";
         _passController.text = "securePassword123";
-        setState(() {});
         //   _emailController.text = "123@yopmail.com";
         //   _passController.text = "123123123";
       }
+      setState(() {});
     });
   }
 
@@ -55,6 +58,30 @@ class _LoginPageState extends State<LoginPage> {
       });
     }
   }
+
+  Future googleLogin() async {
+    var res = await CFirebase.signInGoogle();
+    if (res?.accessToken != null) {
+      await AuthCubit().login(
+          context, _emailController.text.trim().toLowerCase(), "",
+          loginType: "google", accessToken: res?.accessToken ?? "");
+    }
+  }
+
+  Future appleLogin() async {
+    var res = await CFirebase.signInApple();
+    if (res?.accessToken != null) {
+      await AuthCubit().login(
+        context,
+        _emailController.text.trim().toLowerCase(),
+        "",
+        loginType: "apple",
+        accessToken: res?.accessToken ?? "",
+      );
+    }
+  }
+
+  Future fbLogin() async {}
 
   @override
   void dispose() {
@@ -206,11 +233,21 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildSocialIcon('assets/icons/apple.svg'),
+                    Visibility(
+                      visible: isAppleAvailable,
+                      child:
+                          _buildSocialIcon('assets/icons/apple.svg', onTap: () {
+                        appleLogin();
+                      }),
+                    ),
                     const SizedBox(width: 24),
-                    _buildSocialIcon('assets/icons/google.svg'),
+                    _buildSocialIcon('assets/icons/google.svg', onTap: () {
+                      googleLogin();
+                    }),
                     const SizedBox(width: 24),
-                    _buildSocialIcon('assets/icons/facebook.svg'),
+                    _buildSocialIcon('assets/icons/facebook.svg', onTap: () {
+                      fbLogin();
+                    }),
                   ],
                 ),
                 const SizedBox(height: 24),
@@ -245,9 +282,9 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildSocialIcon(String assetPath) {
+  Widget _buildSocialIcon(String assetPath, {VoidCallback? onTap}) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         width: 48,
         height: 48,

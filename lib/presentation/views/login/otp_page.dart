@@ -283,10 +283,11 @@ class _OtpPageState extends State<OtpPage> with WidgetsBindingObserver {
     }
   }
 
+  String? type;
   @override
   Widget build(BuildContext context) {
     args = ModalRoute.of(context)?.settings.arguments as Map?;
-
+    type = args["otpType"];
     // isLoading = false;
 
     return BlocProvider(

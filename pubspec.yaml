@@ -45,10 +45,14 @@ dependencies:
   app_settings:
 
   flutter_local_notifications:
-  flutter_native_splash: 
-  
+  flutter_native_splash:  
+
   firebase_core:  
   firebase_auth: 
+  google_sign_in: 
+  sign_in_with_apple: 
+  firebase_messaging:
+  
 
 dev_dependencies:
   flutter_test:

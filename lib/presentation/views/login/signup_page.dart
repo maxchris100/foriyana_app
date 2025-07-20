@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foriyana_app/core/router/app_router.dart';
+import 'package:foriyana_app/core/util/firebase.dart';
+import 'package:foriyana_app/presentation/blocs/cubit/auth_cubit.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -21,8 +25,57 @@ class _SignUpPageState extends State<SignUpPage> {
   final FocusNode _emailFocus = FocusNode();
   final FocusNode _passFocus = FocusNode();
   final FocusNode _confirmpassFocus = FocusNode();
-  void register() {
-    if (_formKey.currentState!.validate()) {}
+
+  Future register() async {
+    if (_formKey.currentState!.validate()) {
+      await AuthCubit().register(context, _nameController.text.trim(),
+          _emailController.text.trim().toLowerCase(), _passController.text,
+          loginType: "manual", accessToken: "");
+    }
+  }
+
+  Future googleLogin() async {
+    var res = await CFirebase.signInGoogle();
+    if (res?.accessToken != null) {
+      await AuthCubit().login(
+          context, _emailController.text.trim().toLowerCase(), "",
+          loginType: "google", accessToken: res?.accessToken ?? "");
+    }
+  }
+
+  Future appleLogin() async {
+    var res = await CFirebase.signInApple();
+    if (res?.accessToken != null) {
+      await AuthCubit().login(
+        context,
+        _emailController.text.trim().toLowerCase(),
+        "",
+        loginType: "apple",
+        accessToken: res?.accessToken ?? "",
+      );
+    }
+  }
+
+  Future fbLogin() async {}
+
+  bool isDev = false;
+  bool isAppleAvailable = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      isAppleAvailable = await SignInWithApple.isAvailable();
+      if (dotenv.env["ENV"] != "production") {
+        isDev = true;
+        _nameController.text = "John Doe";
+        _emailController.text = "johndoe@example.com";
+        _passController.text = "securePassword123";
+        _confirmpassController.text = "securePassword123";
+      }
+      setState(() {});
+    });
   }
 
   @override
@@ -182,11 +235,17 @@ class _SignUpPageState extends State<SignUpPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildSocialIcon('assets/icons/apple.svg'),
+                    _buildSocialIcon('assets/icons/apple.svg', onTap: () {
+                      appleLogin();
+                    }),
                     const SizedBox(width: 24),
-                    _buildSocialIcon('assets/icons/google.svg'),
+                    _buildSocialIcon('assets/icons/google.svg', onTap: () {
+                      googleLogin();
+                    }),
                     const SizedBox(width: 24),
-                    _buildSocialIcon('assets/icons/facebook.svg'),
+                    _buildSocialIcon('assets/icons/facebook.svg', onTap: () {
+                      fbLogin();
+                    }),
                   ],
                 ),
                 const SizedBox(height: 24),
@@ -221,9 +280,9 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildSocialIcon(String assetPath) {
+  Widget _buildSocialIcon(String assetPath, {VoidCallback? onTap}) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         width: 48,
         height: 48,

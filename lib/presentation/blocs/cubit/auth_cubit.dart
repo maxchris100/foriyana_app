@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:foriyana_app/core/constant/constant.dart';
 import 'package:foriyana_app/core/router/app_router.dart';
+import 'package:foriyana_app/core/util/toast_util.dart';
 import 'package:foriyana_app/domain/repositories/auth_repository.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:foriyana_app/data/data_sources/user_local_data_source.dart';
@@ -101,11 +102,10 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> login(BuildContext context, String email, String password,
-      {String loginType = 'manual'}) async {
+      {String loginType = 'manual', String accessToken = ''}) async {
     try {
-      Navigator.pushReplacementNamed(context, AppRouter.home);
-      return;
-      String accessToken = '';
+      // Navigator.pushReplacementNamed(context, AppRouter.home);
+      // return;
       var response = await AuthRepository.signIn(
           emailOrPhone: email,
           password: password,
@@ -129,6 +129,28 @@ class AuthCubit extends Cubit<AuthState> {
       // context.read<AuthCubit>().checkAuthStatus();
 
       Navigator.of(context).pushReplacementNamed('/home');
+    } catch (e) {
+      debugPrint('Refresh Token error: $e');
+    }
+  }
+
+  Future<void> register(
+      BuildContext context, String name, String email, String password,
+      {String loginType = 'manual', String accessToken = ''}) async {
+    try {
+      var response = await AuthRepository.signUp(
+        name: name,
+        email: email,
+        password: password,
+        phone: "",
+      );
+      if (response.statusCode == 201) {
+        Navigator.of(context)
+            .pushNamed(AppRouter.otp, arguments: {"otpType": "VERIFY_EMAIL"});
+      } else {
+        ToastUtil.showToast(
+            "Info", response.data["message"] ?? "", ToastStatus.error);
+      }
     } catch (e) {
       debugPrint('Refresh Token error: $e');
     }
